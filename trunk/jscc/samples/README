@@ -1,0 +1,33 @@
+These are the two example parsers coming with JS/CC, in various versions.
+
+To compile them, use the JS/CC port of your platform and call it with
+
+	<jscc> -o <output> -t ../driver_<platform>.js <input>
+
+e. g.
+
+	rhino ../jscc.js -o xpl.js -t ../driver_rhino.js xpl.par
+
+will do it for the Rhino version of the XPL interpreter. You can then run the
+interpreter by typing something like
+
+	rhino xpl.js xpl/99-bottles-of-beer.xpl
+
+The examples within this directory are for various platforms, but each example
+is not covered for each platform because of different methods and limitations
+for i/o operations. Adapt the example for your platform by using an existing
+one. Using the jscript-variants is the easiers way, here you only need so
+search for "WScript" and rewrite the particular calls.
+
+calc_jscript.par            - Command-line calculator for JScript (WSH)
+calc.par                    - Command-line calculator for
+                              Rhino/Spidermonkey/V8
+calc_web.par                - Web-based interactive calculator embedded on a
+                              website
+xpl_jscript.par             - XPL compiler/interpreter for JScript (WSH)
+xpl.opt_jscript.par         - XPL compiler/interpreter for JScript (WSH), in
+                              an optimized version with lesser grammar code
+xpl.par                     - XPL compiler/interpreter for Rhino only
+
+In the directory "xpl", you can also find some examples to be executed using
+the XPL compiler/interpreter.
