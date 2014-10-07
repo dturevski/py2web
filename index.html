@@ -1,0 +1,378 @@
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+	<script type="text/javascript" src="jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="py2web.js?ver=0.14.7"></script>
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-34970243-3', 'yacpdb.org');
+	  ga('send', 'pageview');
+
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("button").click(function() {
+				$('#demo').html('')
+					.append($("<div>").addClass("p2w-diagram")
+						.attr('id', 'demo-board').html($("#py-pieces").val()))
+					.append($("<div>").addClass("p2w-solution")
+						.attr('target', 'demo-board').html($("#py-output").val()))		
+				Py2Web.init('#demo')
+			})
+		})
+	</script>
+
+	<link href="py2web.css?ver=0.14.7" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		body { width: 1024px; margin: auto; font-family: PT Sans, Sans; }
+		.dia {float: left;}
+		.sol {margin-left: 250px;}
+		.sol-large {margin-left: 314px;}
+		.well { padding: 10px; border: 1px solid #859998; background-color: #F0FCFC; }
+	</style>
+
+
+<body>
+
+	<h1>Py2Web</h1>
+
+	<h2>Synopsis</h2>
+	<p>
+		Py2Web is an utility for people who create webpages.
+		It allows embedding chess problems viewer into the webpages in a way similar to that in which the PGN viewers work.
+		The difference is that Py2Web supports many features that PGN viewers don't, e.g.: idling (set-play, threat, series-movers),
+		twins, fairy pieces, fairy effects (rebirth, piece color change etc).
+
+	</p>
+
+	<h2>Demo</h2>
+	<p>Example #3 problem by V. Chepizhny <a href="http://www.yacpdb.org/?id=153689">&gt;&gt;153689</a>. Feel free to test your problems.</p>
+	<table><tr><td width="50%" valign="top">
+		<strong>Starting position</strong><br/>
+		in popeye 'Pieces' clause format:<br/>
+		<textarea rows="4" cols="50" id="py-pieces">white  Qg3 Ka7 Ba1
+black  Pa2f3 Kh1 Bb7</textarea><br/>
+
+		<strong>Solution</strong><br/>
+		in popeye output format with optional {comments}:<br/>
+		<textarea rows="15" cols="50" id="py-output">
+1.Ba1-e5 ? threat:
+  2.Qg3-h2 # {doesn't work because of check}
+but 
+  1...a2-a1=Q + ! {(or 1...a1=R+)}
+
+1.Qg3-f2 ! threat:
+  2.Qf2-f1 +
+    2...Kh1-h2
+      3.Ba1-e5 #
+  1...Bb7-a6 {and now}
+    2.Ba1-e5 ! threat:
+      3.Qf2-h2 #</textarea><br/>
+		<button>Go!</button><br/>
+(Protip: you can copy and paste both fields from <a href="https://code.google.com/p/olive-gui/">olive</a>)<br/>
+(Protip2: click right/left parts of the diagram to play the solution forward/backward)<br/>
+
+	</td><td valign="top">
+		<div id="demo"></div>
+	</td></tr></table>
+
+
+
+
+	<h2>More examples</h2>
+	<p>
+	Something more complicated. View this page source to check the syntax (it is 100% popeye output format).
+
+	<h3>Twins, promotions, rebirth and promotion as result of the rebirth</h3>
+	<div class="well">
+		<b>C. J. Feather</b><br/>
+		Fairings (28/5), 2012-11<br/>
+
+		<div class="dia">
+			<div class="p2w-diagram" id="example1">
+			  white  Pb3 Bg1 Ra4 Ka2
+			  black  Pb6h2a3g7b5 Sb2f5 Bc5d7 Kd4 Re4
+			</div>
+
+			h#2
+			CouscousCirce + Isardam<br>
+			b) bPg7&rarr;g4
+		</div>
+
+		<div class="p2w-solution sol" target="example1">
+			a) 
+
+			  1.h2*g1=Q[+wBd8] Ra4-c4   2.Bc5-f8 Bd8*b6[+bPc1=Q] #
+
+			b) bPg7-->g4
+
+			  1.Sb2*a4[+wRg8] Bg1-e3   2.Re4-e7 Rg8*g4[+bPh1=S] #
+		</div>
+
+		<div style="clear: both;"></div>
+	</div>
+
+
+
+
+
+
+	<h3>Fairy piece (nightrider), T&amp;M notation, color change, kobul king</h3>
+	You can temporary hide solution from solvers, it is stil working.
+	<div class="well">
+		<b>P. Tritten &amp; D. Turevski</b><br/>
+		Julia's fairies, 2013/I, 7th Prize<br/>
+		<i>ded. to D. Kostadinov</i><br>
+		<div class="dia">
+			<div class="p2w-diagram" id="example2">
+	  			black  Pg7f6b6g3g5a5a7 Kc2 Rc4 Bh1 Nb5
+			</div>
+
+			h#2<br/>
+			AntiAndernach + KoBulKings + <br/>Take&amp;Make<br>
+			3.1.1.1
+		</div>
+
+		<div class="sol"><a href="#" onclick="$('#example2-sol').toggle(); return false;">Show solution</a></div>
+
+		<div class="p2w-solution sol" style="display: none;" target="example2" id="example2-sol">
+		  1.Bh1-c6=w Bc6*b5-f7[c2=rN]   2.rNc2-a6 Bf7*c4-c8[a6=rR] #
+		  1.Rc4-h4=w Rh4*h1-d5[c2=rB]   2.rBc2-h7 Rd5*b5-h8[h7=rN] #
+		  1.Nb5-d6=w Nd6*c4-b4[c2=rR] +   2.rRc2-h2 Nb4*h1-f3[h2=rB] #
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+
+
+	<h3>Long series-helpmate with rook-locust and PWC</h3>
+	Note how empty comments are used to add linebreaks. Also you can add any static HTML in comments.
+	Diamond-shaped rook-locust illustrates the usage of the <em>glyphs</em> attribute (see "Usage" below, here glyphs='{"lr":"d"}').
+	<div class="well">
+		<b>C. J. Feather</b><br/>
+		Fairings (22/11), 2012-02<br/>
+		<div class="dia">
+			<div class="p2w-diagram" id="example3" glyphs='{"lr":"d"}'>
+				  white  Pd2 Kd5 lrg5
+				  black  Kc1
+			</div>
+
+			ser-h#30<br/>
+			PWC, Rook-Locust g5<br>
+			2.1...
+		</div>
+
+		<div class="p2w-solution sol" target="example3">
+		     1.Kc1-d1   2.Kd1-e2   3.Ke2*d2[+wPe2]   4.Kd2-e3   5.Ke3*e2[+wPe3] {
+} 6.Ke2-f3   7.Kf3*e3[+wPf3]   8.Ke3-f4   9.Kf4*g5[+wLRf4]  10.Kg5-h4 {
+} 11.Kh4-g3  12.Kg3*f4[+wLRg3]  13.Kf4-e3  14.Ke3-f2  15.Kf2-g1 {
+} 16.Kg1-h2  17.Kh2*g3[+wLRh2]  18.Kg3-f4  19.Kf4*f3[+wPf4]  20.Kf3-g4 {
+} 21.Kg4-f5  22.Kf5*f4[+wPf5]  23.Kf4-g5  24.Kg5-f6  25.Kf6*f5[+wPf6] {
+} 26.Kf5-g6  27.Kg6-f7  28.Kf7*f6[+wPf7]  29.Kf6-g7  30.Kg7-h8 f7-f8=Q #
+
+  1.Kc1-c2   2.Kc2*d2[+wPc2]   3.Kd2-c3   4.Kc3*c2[+wPc3]   5.Kc2-b3 {
+} 6.Kb3*c3[+wPb3]   7.Kc3-b4   8.Kb4*b3[+wPb4]   9.Kb3-a4  10.Ka4-b5 {
+} 11.Kb5*b4[+wPb5]  12.Kb4-a5  13.Ka5-b6  14.Kb6*b5[+wPb6]  15.Kb5-a6 {
+} 16.Ka6-b7  17.Kb7*b6[+wPb7]  18.Kb6-c7  19.Kc7*b7[+wPc7]  20.Kb7-c8 {
+} 21.Kc8-d7  22.Kd7*c7[+wPd7]  23.Kc7-d8  24.Kd8-e7  25.Ke7-f6 {
+} 26.Kf6*g5[+wLRf6]  27.Kg5-h6  28.Kh6-g7  29.Kg7*f6[+wLRg7]  30.Kf6-e7 d7-d8=Q #
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+
+
+	<h3>Neat solution auto-formatting</h3>
+	Py2Web shrinked the solution from 29 lines output by Popeye down to 5 (well, ok, 7).
+	<div class="well">
+		<b>A. Selivanov</b><br/>
+		JT V. Kopyl- 50, 2007<br/>
+		1st Prize<br/>
+		<div class="dia">
+			<div class="p2w-diagram" id="example4">
+	  			  white  Qc2 Rh6e8 Ke1 Bf5h8 Sb2h5
+  					black  Pg2e2g3 Kd5 Bf1
+			</div>
+
+			s#4
+		</div>
+
+		<div class="p2w-solution sol" target="example4">
+	1.Qc2-c7 ! zugzwang.
+      1...g2-g1=Q
+          2.Sh5-f6 +
+              2...Kd5-d4
+                  3.Re8-d8 +
+                      3...Kd4-e3
+                          4.Qc7*g3 +
+                              4...Qg1*g3 #
+      1...g2-g1=S
+          2.Bf5-e6 +
+              2...Kd5-e4
+                  3.Be6-g4 +
+                      3...Ke4-d5
+                          4.Bg4-f3 +
+                              4...Sg1*f3 #
+      1...g2-g1=R
+          2.Re8-e5 +
+              2...Kd5-d4
+                  3.Re5*e2 +
+                      3...Kd4-d5
+                          4.Re2-d2 +
+                              4...Bf1-d3 #
+      1...g2-g1=B
+          2.Qc7-a5 +
+              2...Bg1-c5
+                  3.Re8-e5 +
+                      3...Kd5-d4
+                          4.Qa5-b4 +
+                              4...Bc5*b4 #
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+
+	<h3>Imitators and .large diagrams (new in ver. 0.14.7)</h3>
+
+	<div class="well">
+		<b>J. Lörinc</b><br/>
+		Imitator TT, 1996<br/>
+		5th Comm<br/>
+		<div class="dia">
+			<div class="p2w-diagram large" id="example5">
+			  white  Gf7b2c4b5b6
+			  black  Kg5 Ge4c6
+			  neutral If4
+			</div>
+
+			h#8.5 Imitator f1, Grasshoppers
+		</div>
+
+		<div class="p2w-solution sol-large" target="example5">
+a) {
+}
+1...Gb5-d7[Ih6]   2.Kg5-g6[Ih7] Gd7-b5[If5]   3.Kg6-f6[Ie5] Gb6-b4[Ie3]   4.Kf6-f5[Ie2] Gc4-c7[Ie5] {
+}  5.Ge4-b7[Ib8] Gc7-c5[Ib6]   6.Kf5-e5[Ia6] Gb5-d7[Ic8]   7.Gb7-d5[Ie6] Gc5-a3[Ic4]   8.Ke5-d6[Ib5] Gd7-g7[Ie5] {
+}  9.Kd6-c5[Id4] Gf7-c4[Ia1] #
+
+b) Imitator f6 {If6
+}
+1...Gb5-b7[If8]   2.Kg5-f4[Ie7] Gf7-f3[Ie3]   3.Ge4-g4[Ig3] Gf3-f5[Ig5]   4.Kf4-e5[If6] Gb7-b5[If4] {
+}  5.Ke5-f6[Ig5] Gb6-b4[Ig3]   6.Kf6-e6[If3] Gb5-d7[Ih5]   7.Ke6-d6[Ig5] Gc4-a4[Ie5]   8.Kd6-c7[Id6] Gd7-b7[Ib6]  {
+} 9.Kc7-b6[Ia5] Gb7-b5[Ia3] #
+
+c) Imitator g3 {Ig3
+}
+1...Gc4-c7[Ig6]   2.Kg5-f5[If6] Gc7-c5[If4]   3.Kf5-e6[Ie5] Gb5-b7[Ie7]   4.Gc6-c4[Ie5] Gc5-c3[Ie3] {
+}  5.Ke6-d6[Id3] Gb2-d4[If5]   6.Kd6-d7[If6] Gc3-c5[If8]   7.Kd7-c6[Ie7] Gd4-f4[Ig7]   8.Kc6-b5[If6] Gf7-a7[Ia6]  {
+} 9.Ge4-g4[Ic6] Gc5-a5[Ia6] #
+
+d) Imitator c7 {Ic7
+}
+1...Gb6-b4[Ic5]   2.Kg5-h5[Id5] Gb5-d3[If3]   3.Kh5-g4[Ie2] Gc4-c7[Ie5]   4.Ge4-b7[Ib8] Gc7-c5[Ib6] {
+}  5.Kg4-g3[Ib5] Gb2-b5[Ib8]   6.Gc6-c4[Ib6] Gb4-b6[Ib8]   7.Kg3-f2[Ia7] Gb5-d5[Ic7]   8.Kf2-f1[Ic6] Gd5-b5[Ia6] {
+}  9.Gc4-e2[Ic4] Gc5-a7[Ia6] #
+
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+
+	</p>
+
+	<h2>Usage</h2>
+	<p>
+	This is what you add to the &lt;head&gt; part of your document:
+<!-- HTML generated using hilite.me --><div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #062873; font-weight: bold">&lt;script </span><span style="color: #4070a0">type=&quot;text/javascript&quot;</span> <span style="color: #4070a0">src=&quot;jquery-1.11.1.js&quot;</span><span style="color: #062873; font-weight: bold">&gt;&lt;/script&gt;</span>
+<span style="color: #062873; font-weight: bold">&lt;script </span><span style="color: #4070a0">type=&quot;text/javascript&quot;</span> <span style="color: #4070a0">src=&quot;py2web.js&quot;</span><span style="color: #062873; font-weight: bold">&gt;&lt;/script&gt;</span>
+<span style="color: #062873; font-weight: bold">&lt;link</span> <span style="color: #4070a0">href=&quot;py2web.css&quot;</span> <span style="color: #4070a0">rel=&quot;stylesheet&quot;</span> <span style="color: #4070a0">type=&quot;text/css&quot;</span> <span style="color: #062873; font-weight: bold">/&gt;</span>
+</pre></div>
+	Feel free to edit CSS to change the look.
+	</p>
+
+	<p>
+	This is what you add to the &lt;body&gt; part of your document where you want the diagram and solution widgets to be displayed:
+<!-- HTML generated using hilite.me --><div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #062873; font-weight: bold">&lt;div</span> <span style="color: #4070a0">class=&quot;p2w-diagram&quot;</span> <span style="color: #4070a0">id=&quot;myUniqueId&quot;</span> <span style="color: #4070a0">glyphs='{&quot;g&quot;:&quot;q1&quot;,&quot;du&quot;:&quot;p2&quot;}'</span><span style="color: #062873; font-weight: bold">&gt;</span>
+	[Starting position (in popeye &#39;Pieces&#39; clause format)]
+<span style="color: #062873; font-weight: bold">&lt;/div&gt;</span>
+<span style="color: #062873; font-weight: bold">&lt;div</span> <span style="color: #4070a0">class=&quot;p2w-solution&quot;</span> <span style="color: #4070a0">target=&quot;myUniqueId&quot;</span> <span style="color: #4070a0">full-move=&quot;wb&quot;</span> <span style="color: #4070a0">start-node=&quot;first&quot;</span><span style="color: #062873; font-weight: bold">&gt;</span>
+	[Solution (in popeye output format)]
+<span style="color: #062873; font-weight: bold">&lt;/div&gt;</span>
+</pre></div>
+	<p>
+	<strong>.p2w-diagram</strong> attributes:
+	<ul>
+		<li><em>id</em> - (required) element identifier
+ 		<li><em>glyphs</em> - (optional) changes the default representation of pieces, in JSON. In example above Grasshoppers will be displayed as queens rotated 90 deg (default is 180 deg) and Dummies will be displayed as upside-down pawns (instead of X-s).</li>
+	</ul>
+	<p>
+	<strong>.p2w-solution</strong> attributes:
+	<ul>
+		<li><em>target</em> - (required) the <em>id</em> of the corresponding <strong>.p2w-diagram</strong>
+ 		<li><em>full-move</em> - (optional) attribute may be either "wb" (for direct problems and hs*) or "bw" (for helpmates and series-helpmates). In most cases it can be omitted, but not when there's castling in the solution.</li>
+		<li><em>start-node</em> - (optional) attribute may be either "first" (this is default) or "last" (to display proofgames).</li>
+	</ul>
+	</p>
+
+
+	<p>
+	This is where you download py2web files and jQuery: <a href="py2web-0.14.7.zip">py2web-0.14.7.zip</a><br>
+	Version history: <a href="http://yacpdb.livejournal.com/tag/py2web">http://yacpdb.livejournal.com/tag/py2web</a>
+
+	</p>
+	<h2>API</h2>
+	<p>
+		Py2Web defines one useful JS method that you can call on your pages if you need more dynamics and flexibility.
+		<p><code>
+			Py2Web.init(selector)
+		</code>
+		<p>It has no return value. It iterates through all children of the selector that have class <code>.p2w-solution</code> and replaces their content with the solution widget while also replacing the content of the corresponding <code>.p2w-diagram</code> elements with the diagram widget.<br>
+		As you already may have guessed Py2Web calls 
+		<p><code>
+			Py2Web.init('body')
+		</code>
+		<p>when the page has loaded. However, you can load problem content dynamically into some container later and then call 
+		<p><code>
+			Py2Web.init(container)
+		</code>
+		<p>The live demo at the top of this page works in exactly this way. It dynamically creates <code>.p2w-solution</code> and <code>.p2w-diagram</code> elements
+		based on values in the textboxes, nests them within '#demo' div and then calls <code>Py2Web.init('#demo')</code>. Here's the actual source code, jQuery-style:
+
+<!-- HTML generated using hilite.me --><div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #007020">document</span>).ready(<span style="color: #007020; font-weight: bold">function</span>() {
+    $(<span style="color: #4070a0">&quot;button&quot;</span>).click(<span style="color: #007020; font-weight: bold">function</span>() {
+        $(<span style="color: #4070a0">&#39;#demo&#39;</span>).html(<span style="color: #4070a0">&#39;&#39;</span>)
+            .append($(<span style="color: #4070a0">&quot;&lt;div&gt;&quot;</span>).addClass(<span style="color: #4070a0">&quot;p2w-diagram&quot;</span>)
+                .attr(<span style="color: #4070a0">&#39;id&#39;</span>, <span style="color: #4070a0">&#39;demo-board&#39;</span>).html($(<span style="color: #4070a0">&quot;#py-pieces&quot;</span>).val()))
+            .append($(<span style="color: #4070a0">&quot;&lt;div&gt;&quot;</span>).addClass(<span style="color: #4070a0">&quot;p2w-solution&quot;</span>)
+                .attr(<span style="color: #4070a0">&#39;target&#39;</span>, <span style="color: #4070a0">&#39;demo-board&#39;</span>).html($(<span style="color: #4070a0">&quot;#py-output&quot;</span>).val()))        
+        Py2Web.init(<span style="color: #4070a0">&#39;#demo&#39;</span>)
+    })
+})
+</pre></div>
+
+</pre></div>
+
+
+	</p>
+	<h2>Error handling</h2>
+	<p>
+		Is minimal as of yet. Syntax and semantic errors (if any) are logged in the javascript console. If something isn't working - check console (Ctrl+Shift+J in Chrome and FF).
+	</p>
+
+	<h2>Under the hood</h2>
+	<p>
+	Py2Web is a free software with open source code.
+	The parser part of the Py2Web is written in <a href="http://jscc.phorward-software.com/">JS/CC</a> which is a lexer/parser generator. 
+	You may need to have a general knowledge of what a <a href="http://en.wikipedia.org/wiki/Compiler-compiler">compiler-compiler</a> is.
+	</p>
+
+	<hr>
+	<i>Updated: 2014-06-25</i>
+</body>
+</html>
+
