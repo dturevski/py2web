@@ -65,7 +65,7 @@ BuildTree: Solution							[*
 
 Solution: MoveList							[* %1.unshift(new Node(), new VirtualTwinNode()); %% = %1; *]
 		| TwinList							[* %1.unshift(new Node()); %% = %1; *]
-		| Comment Solution					[* %2[0].setv('comment', %1); %% = %2; *]
+		| Comments Solution					[* %2[0].setv('comments', %1); %% = %2; *]
 		|									[* %% = [new Node()] /* Empty input */ *]		
 		;
 
@@ -78,7 +78,7 @@ Twin: TwinHeader MoveList					[* %2.unshift(%1); %% = %2; *]
 
 TwinHeader: TwinBullet
 		| TwinBullet CommandList			[* %% = %1.setv('commands', %2) *]
-		| TwinHeader Comment 				[* %% = %1.setv('comment', %2) *]
+		| TwinHeader Comments 				[* %% = %1.setv('comments', %2) *]
 		;
 
 TwinBullet:  TwinId							[* %% = new TwinNode(%1, false) *]
@@ -129,7 +129,7 @@ Ply: Body																[*  %% = %1; *]
 HalfMove: Ply CheckSign 					[* %% = %1.setv('checksign', %2); *]
 		| Ply
 		| HalfMove Annotation 				[* %% = %1.setv('annotation', %2); *]
-		| HalfMove Comment 					[* %% = %1.setv('comment', %2); *]
+		| HalfMove Comments 					[* %% = %1.setv('comments', %2); *]
 		;
 
 Body: PieceDecl Squares						[* %% = %2.setv('promotion', %1).setv('departant', %1); *]
@@ -171,6 +171,9 @@ CheckSign: '+'
 		| OtherCheckSign
 		;
 
+Comments: Comment                           [* %% = [%1] *]
+    | Comments Comment                      [* %1.push(%2); %% = %1; *]
+    ;
 
 [*
 
@@ -178,13 +181,11 @@ CheckSign: '+'
 /*
 TODO:
 
-  + empty popeye output is now valid Py2Web input
-  + .large (<div class="p2w-diagram large ...">)
-  + Repeat parent nodes after branching (PDB-style)
-  - Imitator
-  + h#X.5 + SetPlay ("1... ... 2.") syntax 
-  + Neutral Chameleon (or any other fairy property) bug fixed
-  + Better compatibility with 3rd party JS libraries (it's now ok redefine global '$' symbol)
+  - SVN repo: https://code.google.com/p/py2web/source/browse/#svn%2Ftrunk
+  - draw diagrams even with parse and symantic errors in solution
+  - multiple comments
+  - {&display-departure-square;}
+  - Py2Web.init() returns success count
 
 */
 
@@ -310,7 +311,7 @@ function Node() {
 	this.depth = 0
 	this.childIsThreat = false
 	this.setv = __setv
-	this.comment = ''
+	this.comments = []
 
 
 	/*
@@ -352,7 +353,7 @@ function Node() {
 
 	this.print = function (accumulator, board) {
 		this.make(board)
-		accumulator.add(this.asText(), board, true, this.comment)
+		accumulator.add(this.asText(), board, true, this.getCommentsAsText())
 
 		for(var i = 0; i < this.children.length; i++) {
 			accumulator.add(this.children[i].fullPrefix(), board, false, '')
@@ -360,6 +361,16 @@ function Node() {
 		}
 
 		this.unmake(board)
+	}
+	
+	this.getCommentsAsText = function() {
+	    var retval = '';
+	    for(var i = 0; i < this.comments.length; i++) {
+	        if(this.comments[i] != '&display-departure-square;') {
+	            retval += this.comments[i];
+	        }
+	    }
+	    return retval;
 	}
 
 
@@ -459,7 +470,7 @@ function NullNode(depth, is_threat) {
 	
 	this.print = function (accumulator, board) {
 		this.make(board)
-		accumulator.add(this.asText(), board, false, this.comment)
+		accumulator.add(this.asText(), board, false, this.getCommentsAsText())
 
 		this.printChildren(accumulator, board)
 
@@ -667,8 +678,16 @@ function MoveNode (dep, arr, cap) {
 		if (pieceName == 'P') {
 			pieceName = (this.capture != -1)? algebraic(this.departure).charAt(0): ''
 		}
+		
+		var depsquares = ''
+		if(this.comments.indexOf('&display-departure-square;') != -1) {
+		    depsquares += algebraic(this.departure);
+		    if(this.capture == -1) {
+		        depsquares += '-'
+		    }
+		}
 
-		squares = algebraic(this.arrival)
+		var squares = algebraic(this.arrival)
 		if(this.capture != -1) {
 			if(this.capture == this.arrival) {
 				squares = 'x' + algebraic(this.arrival)
@@ -677,7 +696,7 @@ function MoveNode (dep, arr, cap) {
 			}
 		}
 
-		retval = pieceName + squares 
+		var retval = pieceName + depsquares + squares 
 
 		if(this.departant.asText() != this.promotion.asText()) {
 			retval += '=' + this.promotion.asText()
@@ -765,7 +784,7 @@ function MoveNode (dep, arr, cap) {
 	this.print = function (accumulator, board) {
 		this.make(board)
 		var text = this.asText()
-		accumulator.add(text, board, true, this.comment)
+		accumulator.add(text, board, true, this.getCommentsAsText())
 
 		this.printChildren(accumulator, board)
 		
@@ -787,9 +806,7 @@ function MoveNode (dep, arr, cap) {
 		// todo: rebirth, recolorings
 
 		if(err) {
-			var msg = "Semantic error at depth " + this.depth + ": " + err
-			console.log(msg)
-			throw msg
+			throw "Semantic error at depth " + this.depth + ": " + err	 
 		}
 	}
 }
@@ -990,6 +1007,41 @@ function Board() {
 			}
 		}
 	}
+	
+	this.fromAlgebraic = function(algebraic) {
+	    for(color in algebraic) {
+			if (['white', 'black', 'neutral'].indexOf(color) == -1) {
+				continue;
+			}
+            for(var i = 0; i < algebraic[color].length; i++) {
+    			var words = algebraic[color][i].split(/\s+/);
+    			var specs = '';
+                for(var j = 0; j < words.length - 2; j++) {
+                    if(__fairyHelper.pprops.indexOf(words[j]) != -1) {
+                        specs += words[j][0];
+                    }
+                }
+                if(matches = words[words.length - 1].toLowerCase().match(/([a-z][0-9a-z]?)([a-h][1-8])+/)) {
+                    var name = matches[1].toUpperCase();
+                    var square = parseSquare(matches[2]);
+                    this.add(new Piece(name, color, specs), square)
+                }
+            
+            }	    
+	    }
+	}
+	
+	this.toPiecesClause = function(algebraic) {
+	    var retval = "";
+	    for(color in algebraic) {
+	        retval += color;
+	        for(var i = 0; i < algebraic[color].length; i++) {
+	            retval += " " + algebraic[color][i];
+	        }
+	        retval += "\n";
+	    }
+	    return retval;
+	}
 
 	this.xfen2Html = function(fen) {
 
@@ -1189,11 +1241,20 @@ function navigate(anchor) {
 	})
 }
 
-
-// unexpected? :)
 return {
 	init: function(selector) {
+	    var success_count = 0;
 		$(selector + " .p2w-solution").each(function() {
+
+			var b = new Board()
+			var pieces_clause = $("#" + $(this).attr("target")).text()
+			var glyphs = $("#" + $(this).attr("target")).attr("glyphs")
+			__fairyHelper.override = glyphs? JSON.parse(glyphs): {}
+
+			b.fromPiecesClause(pieces_clause)
+			b.setStm($(this).attr("full-move") == 'wb'? 'w': 'b')
+			$('#' + $(this).attr('target')).html(b.toHtml())
+
 			// parsing 
 			var error_offsets = new Array()
 			var error_lookaheads = new Array()
@@ -1202,28 +1263,22 @@ return {
 
 			if((error_count = __##PREFIX##parse(str, error_offsets, error_lookaheads)) > 0) {
 				for( i = 0; i < error_count; i++ ) {
-					console.log(
-						"Parse error near \"" +
-						str.substr(error_offsets[i]) +
-						"\", expecting \"" +
-						error_lookaheads[i].join() + "\""
-					)
+					console.log("Parse error near \"" + str.substr(error_offsets[i]) + "\", expecting \"" + error_lookaheads[i].join() + "\"")
 				}
-				return
+                return
 			}
 
 			// creating solution
-			var b = new Board()
-			var pieces_clause = $("#" + $(this).attr("target")).text()
-			var glyphs = $("#" + $(this).attr("target")).attr("glyphs")
-			__fairyHelper.override = glyphs? JSON.parse(glyphs): {}
+			try {
+			    var sb = new SolutionBuilder()
+			    var html = sb.build(__rootNode, b)
+			    $(this).html(html)
+			} catch(e) {
+			    console.log(e)
+			    return
+			}
 
-			b.fromPiecesClause(pieces_clause)
-			b.setStm($(this).attr("full-move") == 'wb'? 'w': 'b')
-			var sb = new SolutionBuilder()
-			var html = sb.build(__rootNode, b)
-			$(this).html(html)
-
+			success_count++;
 			// drawing board
 			navigate($(this).attr("start-node") == "last"?
 				$(this).children("a").last():
@@ -1237,7 +1292,11 @@ return {
 			})
 
 		})
-	}
+		
+		return success_count
+	},
+	
+	Board: Board
 }
 
 
