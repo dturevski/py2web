@@ -181,11 +181,12 @@ Comments: Comment                           [* %% = [%1] *]
 /*
 TODO:
 
-  - SVN repo: https://code.google.com/p/py2web/source/browse/#svn%2Ftrunk
-  - draw diagrams even with parse and symantic errors in solution
-  - multiple comments
-  - {&display-departure-square;}
-  - Py2Web.init() returns success count
+  + SVN repo: https://code.google.com/p/py2web/source/browse/#svn%2Ftrunk
+  + draw diagrams even with parse and symantic errors in solution
+  + multiple comments
+  + {&display-departure-square;}
+  + Py2Web.init() returns success count
+  - unicode figurine notation
 
 */
 
@@ -279,13 +280,18 @@ function Piece(n, c, s) {
 	}
 
 	this.asText = function() {
-		return (this.color == 'n'? 'n': '') + this.specs + this.name
+	    var name = this.name;
+	    if(__fairyHelper.notation[name]) {
+	        name = __fairyHelper.notation[name];
+	    }
+		return (this.color == 'n'? 'n': '') + this.specs + name;
 	}
 
 }
 
 function FairyHelper() {
-	this.override = {}
+	this.override = {};
+	this.notation = {};
 	this.glyphs = {'15':'s3', '16':'s3', '24':'s3', '25':'s3', '35':'s3', '36':'s3', '37':'s3', 'al':'b3', 'am':'a', 'an':'s1', 'ao':'s1',
 					'ar':'b2', 'b':'b', 'b1':'x', 'b2':'x', 'b3':'x', 'be':'x', 'bh':'b2', 'bi':'x', 'bk':'s1', 'bl':'b3', 'bm':'x',
 					'bn':'s2', 'bo':'x', 'bp':'p2', 'br':'x', 'bs':'p2', 'bt':'x', 'bu':'s1', 'bw':'x', 'c':'b1', 'ca':'s3', 'cg':'q1',
@@ -299,9 +305,9 @@ function FairyHelper() {
 					'qq':'x', 'r':'r', 'ra':'x', 'rb':'b3', 're':'r1', 'rf':'x', 'rh':'r2', 'rk':'x', 'rl':'r3', 'rm':'r1', 'rn':'f',
 					'rp':'f', 'ro':'f', 'rr':'x', 'rt':'q1', 'rw':'x', 's':'s', 's1':'s2', 's2':'s2', 's3':'s2', 's4':'s2', 'sh':'x',
 					'si':'q3', 'sk':'a', 'so':'x', 'sp':'p1', 'sq':'x', 'ss':'x', 'sw':'x', 'th':'x', 'tr':'r3', 'uu':'o', 'va':'b3',
-					'wa':'x', 'we':'r2', 'wr':'x', 'z':'s3', 'zh':'x', 'zr':'x', 'ze':'x', 'ms':'s3'}
+					'wa':'x', 'we':'r2', 'wr':'x', 'z':'s3', 'zh':'x', 'zr':'x', 'ze':'x', 'ms':'s3'};
 	this.pprops = ['chameleon', 'jigger', 'kamikaze', 'paralysing', 'royal', 'volage', 'functionary', 'halfneutral', 'hurdlecolourchanging',
-				'protean', 'magic', 'uncapturable']
+				'protean', 'magic', 'uncapturable'];
 }
 
 // RootNode -->  TwinNode | VirtualTwinNode --> NullNode | MoveNode | CastlingNode
@@ -675,7 +681,7 @@ function MoveNode (dep, arr, cap) {
 	this.asText = function() {
 
 		var pieceName = this.departant.asText()
-		if (pieceName == 'P') {
+		if (this.departant.name.toUpperCase() == 'P') {
 			pieceName = (this.capture != -1)? algebraic(this.departure).charAt(0): ''
 		}
 		
@@ -1024,7 +1030,7 @@ function Board() {
                 if(matches = words[words.length - 1].toLowerCase().match(/([a-z][0-9a-z]?)([a-h][1-8])+/)) {
                     var name = matches[1].toUpperCase();
                     var square = parseSquare(matches[2]);
-                    this.add(new Piece(name, color, specs), square)
+                    this.add(new Piece(name, color[0], specs), square)
                 }
             
             }	    
@@ -1125,6 +1131,19 @@ function Board() {
 		}
 		this.btm = o.btm
 	}
+	
+    this.piecesCount = function() {
+        var cnt = {w: 0, b: 0, n: 0};
+        for(var i = 0; i < 64; i++) {
+			if(this.board[i] != null) {
+				cnt[this.board[i].color]++;
+			}
+		}                
+        var pcs =  cnt.w + '+' + cnt.b
+        if(cnt.n > 0) pcs = pcs + '+' + cnt.n
+        return pcs
+    }
+    
 
 	this.clear();
 }
@@ -1250,6 +1269,8 @@ return {
 			var pieces_clause = $("#" + $(this).attr("target")).text()
 			var glyphs = $("#" + $(this).attr("target")).attr("glyphs")
 			__fairyHelper.override = glyphs? JSON.parse(glyphs): {}
+			var notation = $(this).attr("notation");
+			__fairyHelper.notation = notation? JSON.parse(notation): {}
 
 			b.fromPiecesClause(pieces_clause)
 			b.setStm($(this).attr("full-move") == 'wb'? 'w': 'b')
