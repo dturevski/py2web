@@ -292,7 +292,7 @@ K++){var M=this.board[L*8+K]==null?"":this.board[L*8+K].xfen();J+='<a class="cp'
 }else{this.board[J]=null}}this.btm=o.btm};this.piecesCount=function(){var K={w:0,b:0,n:0};
 for(var J=0;J<64;J++){if(this.board[J]!=null){K[this.board[J].color]++}}var L=K.w+"+"+K.b;
 if(K.n>0){L=L+"+"+K.n}return L};this.clear()}function r(K,J){if(""==K){return["EQ","FQ"][J]
-}sprite={};matches=K.match(/^(B?)(!?)([kqrbsnpeaofwdx])([1-7])?$/i);if(matches){sprite={glyph:matches[3].toLowerCase(),rot:matches[4],border:(matches[1]!="")};
+}sprite={};matches=K.match(/^\(?(B?)(!?)([kqrbsnpeaofwdx])([1-7])?\)?$/i);if(matches){sprite={glyph:matches[3].toLowerCase(),rot:matches[4],border:(matches[1]!="")};
 if(matches[2]!=""){sprite.color="neutral"}else{if(sprite.glyph==matches[3]){sprite.color="black"
 }else{sprite.color="white"}}if(!sprite.rot){sprite.rot=0}}else{sprite={glyph:"x",rot:0,color:"white",border:false}
 }if(sprite.glyph=="x"){sprite.color="white"}rot4="kqrbsnp";rot2="e";rot1="aofwd";
@@ -309,13 +309,14 @@ K.html('<div class="p2w-nav-fwd"></div><div class="p2w-nav-bwd"></div>'+j.xfen2H
 L.siblings().removeClass("active");L.addClass("active");g(".p2w-nav-fwd").click(function(M){M.preventDefault();
 A(g('.p2w-solution[target="'+g(this).parent().attr("id")+'"]').children(".active").nextAll("a").first())
 });g(".p2w-nav-bwd").click(function(M){M.preventDefault();A(g('.p2w-solution[target="'+g(this).parent().attr("id")+'"]').children(".active").prevAll("a").first())
-})}return{init:function(J){var K=0;g(J+" .p2w-solution").each(function(){var T=new x();
-var L=g("#"+g(this).attr("target")).text();var V=g("#"+g(this).attr("target")).attr("glyphs");
-c.override=V?JSON.parse(V):{};var S=g(this).attr("notation");c.notation=S?JSON.parse(S):{};
-T.fromPiecesClause(L);T.setStm(g(this).attr("full-move")=="wb"?"w":"b");g("#"+g(this).attr("target")).html(T.toHtml());
-var U=new Array();var M=new Array();var N=0;var Q=g("<textarea />").html(g(this).html()).text();
-if((N=w(Q,U,M))>0){for(i=0;i<N;i++){console.log('Parse error near "'+Q.substr(U[i])+'", expecting "'+M[i].join()+'"')
-}return}try{var R=new t();var O=R.build(D,T);g(this).html(O)}catch(P){console.log(P);
-return}K++;A(g(this).attr("start-node")=="last"?g(this).children("a").last():g(this).children("a").first());
-g(this).children("a").click(function(W){W.preventDefault();A(g(this))})});return K
+})}return{init:function(K,J,L){if(typeof(J)==="undefined"){J=false}if(typeof(L)==="undefined"){L=false
+}var M=0;g(K+" .p2w-solution").each(function(){var V=new x();var N=g("#"+g(this).attr("target")).text();
+var X=g("#"+g(this).attr("target")).attr("glyphs");c.override=X?JSON.parse(X):{};
+var U=g(this).attr("notation");c.notation=U?JSON.parse(U):{};V.fromPiecesClause(N);
+V.setStm(g(this).attr("full-move")=="wb"?"w":"b");g("#"+g(this).attr("target")).html(V.toHtml());
+var W=new Array();var O=new Array();var P=0;var S=g("<textarea />").html(g(this).html()).text();
+if(J){S=g(this).html()}if((P=w(S,W,O))>0){for(i=0;i<P;i++){if(!L){console.log('Parse error near "'+S.substr(W[i])+'", expecting "'+O[i].join()+'"')
+}}return}try{var T=new t();var Q=T.build(D,V);g(this).html(Q)}catch(R){if(!L){console.log(R)
+}return}M++;A(g(this).attr("start-node")=="last"?g(this).children("a").last():g(this).children("a").first());
+g(this).children("a").click(function(Y){Y.preventDefault();A(g(this))})});return M
 },Board:x}}(jQuery);jQuery(document).ready(function(){Py2Web.init("body")});
