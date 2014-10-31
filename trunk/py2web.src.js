@@ -186,7 +186,8 @@ TODO:
   + multiple comments
   + {&display-departure-square;}
   + Py2Web.init() returns success count
-  - unicode figurine notation
+  + Any notation (unicode figurine included)
+  - stalemates bug (p2w expects promotion after "=")
 
 */
 
@@ -1155,7 +1156,7 @@ function xfen2spritedecl(xfen, color) {
 		return  ['EQ', 'FQ'][color]
 
 	sprite = {}
-	matches = xfen.match(/^(B?)(!?)([kqrbsnpeaofwdx])([1-7])?$/i)
+	matches = xfen.match(/^\(?(B?)(!?)([kqrbsnpeaofwdx])([1-7])?\)?$/i)
 	if(matches) {
 		sprite = {'glyph':matches[3].toLowerCase(), 'rot':matches[4], 'border':(matches[1] != '')}
 
@@ -1261,7 +1262,15 @@ function navigate(anchor) {
 }
 
 return {
-	init: function(selector) {
+	init: function(selector, escapeHtml, quiet) {
+	    
+	    if(typeof(escapeHtml) === 'undefined') {
+	        escapeHtml = false;
+	    }
+	    if(typeof(quiet) === 'undefined') {
+	        quiet = false;
+	    }
+	    
 	    var success_count = 0;
 		$(selector + " .p2w-solution").each(function() {
 
@@ -1274,6 +1283,7 @@ return {
 
 			b.fromPiecesClause(pieces_clause)
 			b.setStm($(this).attr("full-move") == 'wb'? 'w': 'b')
+			
 			$('#' + $(this).attr('target')).html(b.toHtml())
 
 			// parsing 
@@ -1281,10 +1291,16 @@ return {
 			var error_lookaheads = new Array()
 			var error_count = 0
 			var str = $('<textarea />').html($(this).html()).text()	
+			if(escapeHtml) {
+			    str = $(this).html();
+			}
+
 
 			if((error_count = __##PREFIX##parse(str, error_offsets, error_lookaheads)) > 0) {
 				for( i = 0; i < error_count; i++ ) {
-					console.log("Parse error near \"" + str.substr(error_offsets[i]) + "\", expecting \"" + error_lookaheads[i].join() + "\"")
+				    if(!quiet) {
+    					console.log("Parse error near \"" + str.substr(error_offsets[i]) + "\", expecting \"" + error_lookaheads[i].join() + "\"");
+    				}
 				}
                 return
 			}
@@ -1295,7 +1311,9 @@ return {
 			    var html = sb.build(__rootNode, b)
 			    $(this).html(html)
 			} catch(e) {
-			    console.log(e)
+			    if(!quiet) {
+    			    console.log(e);
+    			}
 			    return
 			}
 
