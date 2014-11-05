@@ -184,7 +184,7 @@ TODO:
   + SVN repo: https://code.google.com/p/py2web/source/browse/#svn%2Ftrunk
   + draw diagrams even with parse and symantic errors in solution
   + multiple comments
-  + {&display-departure-square;}
+  + {display-departure-square}
   + Py2Web.init() returns success count
   + Any notation (unicode figurine included)
   - stalemates bug (p2w expects promotion after "=")
@@ -373,7 +373,7 @@ function Node() {
 	this.getCommentsAsText = function() {
 	    var retval = '';
 	    for(var i = 0; i < this.comments.length; i++) {
-	        if(this.comments[i] != '&display-departure-square;') {
+	        if(this.comments[i] != 'display-departure-square') {
 	            retval += this.comments[i];
 	        }
 	    }
@@ -687,7 +687,7 @@ function MoveNode (dep, arr, cap) {
 		}
 		
 		var depsquares = ''
-		if(this.comments.indexOf('&display-departure-square;') != -1) {
+		if(this.comments.indexOf('display-departure-square') != -1) {
 		    depsquares += algebraic(this.departure);
 		    if(this.capture == -1) {
 		        depsquares += '-'
@@ -1131,6 +1131,7 @@ function Board() {
 			}
 		}
 		this.btm = o.btm
+		this.imitators = o.imitators
 	}
 	
     this.piecesCount = function() {
