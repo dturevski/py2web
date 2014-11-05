@@ -179,7 +179,7 @@ J<this.children.length;J++){if(this.children[J].isContinued){this.children[J].an
 }}};this.print=function(J,L){this.make(L);J.add(this.asText(),L,true,this.getCommentsAsText());
 for(var K=0;K<this.children.length;K++){J.add(this.children[K].fullPrefix(),L,false,"");
 this.children[K].print(J,L)}this.unmake(L)};this.getCommentsAsText=function(){var J="";
-for(var K=0;K<this.comments.length;K++){if(this.comments[K]!="&display-departure-square;"){J+=this.comments[K]
+for(var K=0;K<this.comments.length;K++){if(this.comments[K]!="display-departure-square"){J+=this.comments[K]
 }}return J};this.printChildren=function(J,L){for(var K=0;K<this.children.length;K++){if(this.children.length>1){if(!this.children[K].noNewLine()){J.add("\n",L,false,"");
 J.add(K>0?" ":"  ",L,K>0,"")}J.add(this.children[K].fullPrefix(),L,false,"")}else{if(this.depth==1){J.add("\n",L,false,"")
 }if(this.isSetPlay()&&(this.depth==2)){J.add(this.children[K].fullPrefix(),L,false,"")
@@ -224,7 +224,7 @@ O<this.rebirths.length;O++){M.add(this.rebirths[O].prom==null?this.rebirths[O].u
 if(this.promotions[O].unit.specs!=""){M.board[this.promotions[O].at].specs=this.promotions[O].unit.specs
 }}M.imitators=this.imitators};this.unmake=function(M){M.unserialize(this.oldboard)
 };this.asText=function(){var P=this.departant.asText();if(this.departant.name.toUpperCase()=="P"){P=(this.capture!=-1)?v(this.departure).charAt(0):""
-}var O="";if(this.comments.indexOf("&display-departure-square;")!=-1){O+=v(this.departure);
+}var O="";if(this.comments.indexOf("display-departure-square")!=-1){O+=v(this.departure);
 if(this.capture==-1){O+="-"}}var N=v(this.arrival);if(this.capture!=-1){if(this.capture==this.arrival){N="x"+v(this.arrival)
 }else{N="x"+v(this.capture)+"&rarr;"+v(this.arrival)}}var M=P+O+N;if(this.departant.asText()!=this.promotion.asText()){M+="="+this.promotion.asText()
 }M+=this.imitatorsAsText()+this.recoloringsAsText()+this.antirebirthsAsText()+this.rebirthsAsText()+this.promotionsAsText();
@@ -289,7 +289,7 @@ K++){var M=this.board[L*8+K]==null?"":this.board[L*8+K].xfen();J+='<a class="cp'
 }}return J};this.btm=true;this.flip=function(){this.btm=!this.btm};this.getStm=function(){return this.btm?"b":"w"
 };this.setStm=function(J){this.btm=(J=="b")};this.serialize=function(){return JSON.stringify(this)
 };this.unserialize=function(K){o=JSON.parse(K);for(var J=0;J<64;J++){if(o.board[J]!=null){this.board[J]=new q(o.board[J].name,o.board[J].color,o.board[J].specs)
-}else{this.board[J]=null}}this.btm=o.btm};this.piecesCount=function(){var K={w:0,b:0,n:0};
+}else{this.board[J]=null}}this.btm=o.btm;this.imitators=o.imitators};this.piecesCount=function(){var K={w:0,b:0,n:0};
 for(var J=0;J<64;J++){if(this.board[J]!=null){K[this.board[J].color]++}}var L=K.w+"+"+K.b;
 if(K.n>0){L=L+"+"+K.n}return L};this.clear()}function r(K,J){if(""==K){return["EQ","FQ"][J]
 }sprite={};matches=K.match(/^\(?(B?)(!?)([kqrbsnpeaofwdx])([1-7])?\)?$/i);if(matches){sprite={glyph:matches[3].toLowerCase(),rot:matches[4],border:(matches[1]!="")};
