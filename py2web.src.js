@@ -179,7 +179,6 @@ Comments: Comment                           [* %% = [%1] *]
 
 
 /*
-TODO:
 
   + SVN repo: https://code.google.com/p/py2web/source/browse/#svn%2Ftrunk
   + draw diagrams even with parse and symantic errors in solution
@@ -188,6 +187,7 @@ TODO:
   + Py2Web.init() returns success count
   + Any notation (unicode figurine included)
   - stalemates bug (p2w expects promotion after "=")
+  - e.p.
 
 */
 
@@ -288,6 +288,18 @@ function Piece(n, c, s) {
 		return (this.color == 'n'? 'n': '') + this.specs + name;
 	}
 
+}
+
+function ParsePiece(xfen) {
+    var c = "b"
+    if(xfen.charAt(0) == "!") {
+        c = "n";
+        xfen = xfen.substring(1);
+    } else if (xfen.toUpperCase() == xfen) {
+        c = "w"
+    }
+
+    return new Piece(xfen.toUpperCase(), c, [])    
 }
 
 function FairyHelper() {
@@ -804,7 +816,8 @@ function MoveNode (dep, arr, cap) {
 			err = "Departure from empty square " + algebraic(this.departure)
 		} else if((b.board[this.arrival] != null) && (this.capture == -1)) {
 			err = "Arrival square " + algebraic(this.arrival) + ' is occupied but no capture is specified'
-		} else if((b.board[this.arrival] != null) && (this.capture != this.arrival)) {
+		} else if((b.board[this.arrival] != null) && (this.capture != this.arrival) && (this.arrival != this.departure)) {
+			//(this.arrival != this.departure) - found by Roland Ott: not an error in Anticirce/Take&Make variants (Sc2*a1-c2) 
 			err = "Arrival square " + algebraic(this.arrival) + ' is occupied but capture is specified at ' + algebraic(this.capture)
 		} else if((this.capture != -1) && (b.board[this.capture] == null)) {
 			err = "Capture at empty square " + algebraic(this.capture)
@@ -967,7 +980,7 @@ function Board() {
 			} else if('(' == fen.charAt(i)) {
 				idx = fen.indexOf(')', i);
 				if(idx != -1) {
-					this.add(fen.substring(i+1, idx), j, [])         
+					this.add(ParsePiece(fen.substring(i+1, idx)), j)         
 					j = j + 1
 					i = idx + 1
 				} else {
@@ -976,11 +989,22 @@ function Board() {
 			} else if('/' == fen.charAt(i)) {
 				i = i + 1
 			} else {
-				this.add(fen.charAt(i), j, [])           
+				this.add(ParsePiece(fen.charAt(i)), j)           
 				j = j + 1;
 				i = i + 1;
 			}
 		}
+	}
+	
+	this.toAlgebraic = function() {
+	    var retval = {white: [], black: [], neutral: []}
+	    var cs = {w:"white", b:"black", n:"neutral"}
+	    for(var i = 0; i < 64; i++) {
+	        if(this.board[i] != null) {
+	            retval[cs[this.board[i].color]].push(this.board[i].name + algebraic(i))
+	        }
+	    }
+	    return retval
 	}
 
 	this.fromPiecesClause = function(p) {
@@ -1041,12 +1065,11 @@ function Board() {
 	this.toPiecesClause = function(algebraic) {
 	    var retval = "";
 	    for(color in algebraic) {
-	        retval += color;
 	        for(var i = 0; i < algebraic[color].length; i++) {
-	            retval += " " + algebraic[color][i];
+	            retval += color + " " + algebraic[color][i] + "\n";
 	        }
-	        retval += "\n";
 	    }
+	    console.log(retval);
 	    return retval;
 	}
 
@@ -1262,6 +1285,13 @@ function navigate(anchor) {
 	})
 }
 
+function unescapePopeyeArrows(str) {
+    str = str.replace(/&lt;--&gt;/g, "<-->")
+    str = str.replace(/--&gt;/g, "-->")
+    str = str.replace(/==&gt;/g, "==>")
+    return str
+}
+
 return {
 	init: function(selector, escapeHtml, quiet) {
 	    
@@ -1293,7 +1323,7 @@ return {
 			var error_count = 0
 			var str = $('<textarea />').html($(this).html()).text()	
 			if(escapeHtml) {
-			    str = $(this).html();
+			    str = unescapePopeyeArrows($(this).html());			    
 			}
 
 
