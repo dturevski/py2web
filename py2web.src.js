@@ -117,6 +117,7 @@ Move: MoveNo HalfMove HalfMove				[* %% = [%2.setv('depth', %1), %3.setv('depth'
 Ply: Body																[*  %% = %1; *]
  		| Ply '=' ColorPrefix 											[* %1.recolorings[%3].push(%1.arrival); %% = %1; *]
  		| Ply '=' PieceDecl 											[*  %% = %1.setv('promotion', %3); *]
+ 		| Ply '=' LongPieceDecl 										[*  %% = %1.setv('promotion', %3); *]
  		| Ply '[' '+' LongPieceDecl Square '=' PieceDecl ']' 			[* %1.rebirths.push( {unit:%4, at: %5, prom:%7} ); %% = %1; *] 
  		| Ply '[' '+' LongPieceDecl Square ']'				 			[* %1.rebirths.push( {unit:%4, at: %5, prom:null} ); %% = %1; *] 
  		| Ply '[' LongPieceDecl Square '->' Square '=' PieceDecl  ']'	[* %1.antirebirths.push( {unit:%3, from: %4, to: %6, prom:%8} ); %% = %1; *] 
@@ -718,7 +719,15 @@ function MoveNode (dep, arr, cap) {
 		var retval = pieceName + depsquares + squares 
 
 		if(this.departant.asText() != this.promotion.asText()) {
-			retval += '=' + this.promotion.asText()
+		    var promAsText = this.promotion.asText()
+		    if(
+		        (this.departant.color != this.promotion.color) &&
+		        (this.promotion.color != 'n') &&
+		        (this.departant.color != 'u')
+		    ) {
+		        promAsText = this.promotion.color + promAsText // halfneutrals workaround
+		    }
+			retval += '=' + promAsText
 		}
 
 		retval += this.imitatorsAsText() + this.recoloringsAsText() + this.antirebirthsAsText() + this.rebirthsAsText() + this.promotionsAsText()
