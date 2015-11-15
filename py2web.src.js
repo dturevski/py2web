@@ -124,6 +124,7 @@ Ply: Body																[*  %% = %1; *]
  		| Ply '[' LongPieceDecl Square '->' Square ']'					[* %1.antirebirths.push( {unit:%3, from: %4, to: %6, prom:null} ); %% = %1; *] 
 		| Ply '[' Square '=' PieceDecl ']' 								[* %1.promotions.push({unit: %5, at:%3} ); %% = %1; *]
 		| Ply '[' Square '=' ColorPrefix ']' 							[* %1.recolorings[%5].push(%3); %% = %1; *]
+ 		| Ply '[' '-' Square ']' 										[* %1.removals.push(%4); %% = %1; *]
 		| Ply '[I' SquareList ']'		 							[* %1.imitators = %3; %% = %1; *]
 		;
 
@@ -609,6 +610,7 @@ function MoveNode (dep, arr, cap) {
 	this.antirebirths = []
 	this.promotions = []  // when promoted is some other piece, not the one that arrives, eg in KobulKings
 	this.imitators = []
+	this.removals = []
 
 	this.annotation = ''
 	this.checksign = ''
@@ -686,6 +688,12 @@ function MoveNode (dep, arr, cap) {
 
 		// imitators
 		b.imitators = this.imitators
+		
+		// removals
+		for(var i = 0; i < this.removals.length; i++) {
+			b.drop(this.removals[i])
+		}
+		
 	}
 
 	this.unmake = function(b) {
@@ -730,7 +738,8 @@ function MoveNode (dep, arr, cap) {
 			retval += '=' + promAsText
 		}
 
-		retval += this.imitatorsAsText() + this.recoloringsAsText() + this.antirebirthsAsText() + this.rebirthsAsText() + this.promotionsAsText()
+		retval += this.imitatorsAsText() + this.recoloringsAsText() + this.antirebirthsAsText()
+		    + this.rebirthsAsText() + this.promotionsAsText() + this.removalsAsText()
 
 		if(this.checksign != '')
 			retval += this.checksign
@@ -742,6 +751,18 @@ function MoveNode (dep, arr, cap) {
 
 	}
 
+	this.removalsAsText = function() {
+		acc = []
+		for(var k in this.removals) {
+		    acc.push('[-' + algebraic(this.removals[k]) + ']')
+		}
+		if(acc.length > 0) {
+			return ' ' + acc.join('')
+		}
+
+		return ''
+	}
+	
 	this.imitatorsAsText = function() {
 		return this.imitators.length == 0?
 			'': ' (I' + this.imitators.map(algebraic).join(',') + ')'
@@ -1284,14 +1305,8 @@ function navigate(anchor) {
 	anchor.siblings().removeClass('active')
 	anchor.addClass('active')
 
-	$(".p2w-nav-fwd").click(function(e) {
-		e.preventDefault()
-		navigate($('.p2w-solution[target="' + $(this).parent().attr('id') + '"]').children(".active").nextAll('a').first())
-	})
-	$(".p2w-nav-bwd").click(function(e) {
-		e.preventDefault()
-		navigate($('.p2w-solution[target="' + $(this).parent().attr('id') + '"]').children(".active").prevAll('a').first())
-	})
+	$(".p2w-nav-fwd").bind("click", Py2Web.navigateForward)
+	$(".p2w-nav-bwd").bind("click", Py2Web.navigateBackward)
 }
 
 function unescapePopeyeArrows(str) {
@@ -1302,6 +1317,17 @@ function unescapePopeyeArrows(str) {
 }
 
 return {
+
+    navigateForward: function(e) {
+		e.preventDefault()
+		navigate($('.p2w-solution[target="' + $(this).parent().attr('id') + '"]').children(".active").nextAll('a').first())
+	},
+	
+	navigateBackward: function(e) {
+		e.preventDefault()
+		navigate($('.p2w-solution[target="' + $(this).parent().attr('id') + '"]').children(".active").prevAll('a').first())
+	},
+
 	init: function(selector, escapeHtml, quiet) {
 	    
 	    if(typeof(escapeHtml) === 'undefined') {
