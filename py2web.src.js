@@ -321,6 +321,7 @@ function FairyHelper() {
 					'rp':'f', 'ro':'f', 'rr':'x', 'rt':'q1', 'rw':'x', 's':'s', 's1':'s2', 's2':'s2', 's3':'s2', 's4':'s2', 'sh':'x',
 					'si':'q3', 'sk':'a', 'so':'x', 'sp':'p1', 'sq':'x', 'ss':'x', 'sw':'x', 'th':'x', 'tr':'r3', 'uu':'o', 'va':'b3',
 					'wa':'x', 'we':'r2', 'wr':'x', 'z':'s3', 'zh':'x', 'zr':'x', 'ze':'x', 'ms':'s3'};
+	this.captureGlyph = "x";
 	this.pprops = ['chameleon', 'jigger', 'kamikaze', 'paralysing', 'royal', 'volage', 'functionary', 'halfneutral', 'hurdlecolourchanging',
 				'protean', 'magic', 'uncapturable'];
 }
@@ -333,6 +334,8 @@ function Node() {
 	this.childIsThreat = false
 	this.setv = __setv
 	this.comments = []
+
+    this.commentCommands = ['display-departure-square', "display-departure-file", "display-departure-rank"]
 
 
 	/*
@@ -387,7 +390,7 @@ function Node() {
 	this.getCommentsAsText = function() {
 	    var retval = '';
 	    for(var i = 0; i < this.comments.length; i++) {
-	        if(this.comments[i] != 'display-departure-square') {
+	        if(this.commentCommands.indexOf(this.comments[i]) == -1) {
 	            retval += this.comments[i];
 	        }
 	    }
@@ -713,14 +716,24 @@ function MoveNode (dep, arr, cap) {
 		    if(this.capture == -1) {
 		        depsquares += '-'
 		    }
-		}
+		} else if(this.comments.indexOf('display-departure-file') != -1) {
+            depsquares += algebraic(this.departure)[0];
+            if(this.capture == -1) {
+                depsquares += '-'
+            }
+        } else if(this.comments.indexOf('display-departure-rank') != -1) {
+            depsquares += algebraic(this.departure)[1];
+            if(this.capture == -1) {
+                depsquares += '-'
+            }
+        }
 
 		var squares = algebraic(this.arrival)
 		if(this.capture != -1) {
 			if(this.capture == this.arrival) {
-				squares = 'x' + algebraic(this.arrival)
+				squares = __fairyHelper.captureGlyph + algebraic(this.arrival)
 			} else {
-				squares = 'x' + algebraic(this.capture) + '&rarr;' + algebraic(this.arrival)
+				squares = __fairyHelper.captureGlyph + algebraic(this.capture) + '&rarr;' + algebraic(this.arrival)
 			}
 		}
 
@@ -1304,7 +1317,7 @@ function navigate(anchor) {
 			__board.xfen2Html(fen))
 	anchor.siblings().removeClass('active')
 	anchor.addClass('active')
-
+	
 	$(".p2w-nav-fwd").bind("click", Py2Web.navigateForward)
 	$(".p2w-nav-bwd").bind("click", Py2Web.navigateBackward)
 }
@@ -1342,10 +1355,17 @@ return {
 
 			var b = new Board()
 			var pieces_clause = $("#" + $(this).attr("target")).text()
+
 			var glyphs = $("#" + $(this).attr("target")).attr("glyphs")
 			__fairyHelper.override = glyphs? JSON.parse(glyphs): {}
+
 			var notation = $(this).attr("notation");
-			__fairyHelper.notation = notation? JSON.parse(notation): {}
+			__fairyHelper.notation = notation? JSON.parse(notation): {};
+
+            var captureGlyph = $(this).attr("capture-glyph");
+            if(captureGlyph) {
+                __fairyHelper.captureGlyph = captureGlyph;
+            }
 
 			b.fromPiecesClause(pieces_clause)
 			b.setStm($(this).attr("full-move") == 'wb'? 'w': 'b')
