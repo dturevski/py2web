@@ -718,14 +718,8 @@ function MoveNode (dep, arr, cap) {
 		    }
 		} else if(this.comments.indexOf('display-departure-file') != -1) {
             depsquares += algebraic(this.departure)[0];
-            if(this.capture == -1) {
-                depsquares += '-'
-            }
         } else if(this.comments.indexOf('display-departure-rank') != -1) {
             depsquares += algebraic(this.departure)[1];
-            if(this.capture == -1) {
-                depsquares += '-'
-            }
         }
 
 		var squares = algebraic(this.arrival)
