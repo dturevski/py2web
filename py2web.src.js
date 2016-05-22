@@ -851,7 +851,7 @@ function MoveNode (dep, arr, cap) {
 		var err = null
 		if(b.board[this.departure] == null) {
 			err = "Departure from empty square " + algebraic(this.departure)
-		} else if((b.board[this.arrival] != null) && (this.capture == -1)) {
+		} else if((b.board[this.arrival] != null) && (this.capture == -1) && (this.arrival != this.departure)) {
 			err = "Arrival square " + algebraic(this.arrival) + ' is occupied but no capture is specified'
 		} else if((b.board[this.arrival] != null) && (this.capture != this.arrival) && (this.arrival != this.departure)) {
 			//(this.arrival != this.departure) - found by Roland Ott: not an error in Anticirce/Take&Make variants (Sc2*a1-c2) 
@@ -892,7 +892,18 @@ function CastlingNode (isKingSide) {
 	}
 
 	this.asText = function() {
-		return this.isKingSide? '0-0': '0-0-0'
+		var retval = this.isKingSide? '0-0': '0-0-0'
+		
+		retval += this.imitatorsAsText() + this.recoloringsAsText() + this.antirebirthsAsText()
+		    + this.rebirthsAsText() + this.promotionsAsText() + this.removalsAsText()
+
+		if(this.checksign != '')
+			retval += this.checksign
+
+		if(this.annotation != '')
+			retval += this.annotation
+
+		return retval 
 	}
 
 }

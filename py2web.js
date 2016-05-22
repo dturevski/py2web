@@ -253,14 +253,16 @@ O++){acc.push("("+w(this.promotions[O].at)+"="+this.promotions[O].unit.asText()+
 }if(acc.length>0){return" "+acc.join(" ")}return""};this.print=function(O,P){this.make(P);
 var Q=this.asText();O.add(Q,P,true,this.getCommentsAsText());this.printChildren(O,P);
 this.unmake(P)};this.assertSemantics=function(O){var P=null;if(O.board[this.departure]==null){P="Departure from empty square "+w(this.departure)
-}else{if((O.board[this.arrival]!=null)&&(this.capture==-1)){P="Arrival square "+w(this.arrival)+" is occupied but no capture is specified"
+}else{if((O.board[this.arrival]!=null)&&(this.capture==-1)&&(this.arrival!=this.departure)){P="Arrival square "+w(this.arrival)+" is occupied but no capture is specified"
 }else{if((O.board[this.arrival]!=null)&&(this.capture!=this.arrival)&&(this.arrival!=this.departure)){P="Arrival square "+w(this.arrival)+" is occupied but capture is specified at "+w(this.capture)
 }else{if((this.capture!=-1)&&(O.board[this.capture]==null)){P="Capture at empty square "+w(this.capture)
 }}}}if(P){throw"Semantic error at depth "+this.depth+": "+P}}}v.prototype=__node;
 __moveNode=new v(-1,-1,-1);function n(L){this.isKingSide=L;this.make=function(M){this.oldboard=M.serialize();
 var N=M.btm?0:56;if(this.isKingSide){M.move(I("e8")+N,I("g8")+N);M.move(I("h8")+N,I("f8")+N)
-}else{M.move(I("e8")+N,I("c8")+N);M.move(I("a8")+N,I("d8")+N)}M.flip()};this.asText=function(){return this.isKingSide?"0-0":"0-0-0"
-}}n.prototype=__moveNode;function y(){this.add=function(M,L){if((L>63)||(L<0)){return
+}else{M.move(I("e8")+N,I("c8")+N);M.move(I("a8")+N,I("d8")+N)}M.flip()};this.asText=function(){var M=this.isKingSide?"0-0":"0-0-0";
+M+=this.imitatorsAsText()+this.recoloringsAsText()+this.antirebirthsAsText()+this.rebirthsAsText()+this.promotionsAsText()+this.removalsAsText();
+if(this.checksign!=""){M+=this.checksign}if(this.annotation!=""){M+=this.annotation
+}return M}}n.prototype=__moveNode;function y(){this.add=function(M,L){if((L>63)||(L<0)){return
 }this.board[L]=M};this.drop=function(L){this.add(null,L)};this.clear=function(){this.board=new Array(64);
 this.imitators=[];for(i=0;i<64;i++){this.drop(i)}};this.move=function(M,L){this.add(this.board[M],L);
 this.drop(M)};this.transform=function(N){var M=new y();for(var L=0;L<64;L++){if(this.board[L]!=null){p=H(L);
