@@ -307,20 +307,23 @@ function ParsePiece(xfen) {
 function FairyHelper() {
 	this.override = {};
 	this.notation = {};
-	this.glyphs = {'15':'s3', '16':'s3', '24':'s3', '25':'s3', '35':'s3', '36':'s3', '37':'s3', 'al':'b3', 'am':'a', 'an':'s1', 'ao':'s1',
-					'ar':'b2', 'b':'b', 'b1':'x', 'b2':'x', 'b3':'x', 'be':'x', 'bh':'b2', 'bi':'x', 'bk':'s1', 'bl':'b3', 'bm':'x',
-					'bn':'s2', 'bo':'x', 'bp':'p2', 'br':'x', 'bs':'p2', 'bt':'x', 'bu':'s1', 'bw':'x', 'c':'b1', 'ca':'s3', 'cg':'q1',
-					'ch':'s3', 'cp':'p3', 'cr':'s3', 'ct':'x', 'cy':'x', 'da':'r1', 'db':'b1', 'dg':'q1', 'dk':'r1', 'do':'q3', 'dr':'x',
-					'ds':'x', 'du':'p1', 'ea':'q3', 'eh':'q1', 'ek':'x', 'em':'x', 'eq':'e', 'et':'x', 'f':'o', 'fe':'b3', 'fr':'x',
-					'g':'q2', 'g2':'q1', 'g3':'q3', 'ge':'x', 'gf':'x', 'gh':'s1', 'gi':'s1', 'gl':'x', 'gn':'x', 'gr':'x', 'gt':'x',
-					'ha':'q3', 'k':'k', 'ka':'q3', 'kl':'q3', 'kh':'k2', 'kl':'q1', 'ko':'x', 'kp':'s2', 'l':'q1', 'lb':'b1', 'le':'q3',
-					'lh':'x', 'li':'q3', 'ln':'s1', 'lr':'r1', 'ls':'f', 'm':'x', 'ma':'s1', 'mg':'x', 'mh':'x', 'ml':'x', 'mm':'x',
-					'mo':'s3', 'mp':'p3', 'ms':'s3', 'n':'s2', 'na':'s3', 'nd':'b3', 'ne':'e', 'nh':'s3', 'nl':'s3', 'o':'o', 'oa':'s1',
-					'ok':'x', 'or':'e1', 'p':'p', 'pa':'r3', 'po':'k3', 'pp':'p2', 'pr':'x', 'q':'q', 'qe':'e', 'qf':'e', 'qn':'x',
-					'qq':'x', 'r':'r', 'ra':'x', 'rb':'b3', 're':'r1', 'rf':'x', 'rh':'r2', 'rk':'x', 'rl':'r3', 'rm':'r1', 'rn':'f',
-					'rp':'f', 'ro':'f', 'rr':'x', 'rt':'q1', 'rw':'x', 's':'s', 's1':'s2', 's2':'s2', 's3':'s2', 's4':'s2', 'sh':'x',
-					'si':'q3', 'sk':'a', 'so':'x', 'sp':'p1', 'sq':'x', 'ss':'x', 'sw':'x', 'th':'x', 'tr':'r3', 'uu':'o', 'va':'b3',
-					'wa':'x', 'we':'r2', 'wr':'x', 'z':'s3', 'zh':'x', 'zr':'x', 'ze':'x', 'ms':'s3'};
+	this.glyphs = {
+		'15':'s3', '16':'s3', '24':'s3', '25':'s3', '35':'s3', '36':'s3', '37':'s3', 'al':'b3', 'am':'a', 'an':'s1', 'ao':'s1',
+		'ar':'b2', 'b':'b', 'b1':'x', 'b2':'x', 'b3':'x', 'be':'x', 'bh':'b2', 'bi':'x', 'bk':'s1', 'bl':'b3', 'bm':'x',
+		'bn':'s2', 'bo':'x', 'bp':'p2', 'br':'x', 'bs':'p2', 'bt':'x', 'bu':'s1', 'bw':'x', 'c':'b1', 'ca':'s3', 'cg':'q1',
+		'ch':'s3', 'cp':'p3', 'cr':'s3', 'ct':'x', 'cy':'x', 'da':'r1', 'db':'b1', 'dg':'q1', 'dk':'r1', 'do':'q3', 'dr':'x',
+		'ds':'x', 'du':'p1', 'ea':'q3', 'eh':'q1', 'ek':'x', 'em':'x', 'eq':'e', 'et':'x', 'f':'o', 'fe':'b3', 'fr':'x',
+		'g':'q2', 'g2':'q1', 'g3':'q3', 'ge':'x', 'gf':'x', 'gh':'s1', 'gi':'s1', 'gl':'x', 'gn':'x', 'gr':'x', 'gt':'x',
+		'ha':'q3', 'k':'k', 'ka':'q3', 'kl':'q3', 'kh':'k2', 'kl':'q1', 'ko':'x', 'kp':'s2', 'l':'q1', 'lb':'b1', 'le':'q3',
+		'lh':'x', 'li':'q3', 'ln':'s1', 'lr':'r1', 'ls':'f', 'm':'x', 'ma':'s1', 'mg':'x', 'mh':'x', 'ml':'x', 'mm':'x',
+		'mo':'s3', 'mp':'p3', 'ms':'s3', 'n':'s2', 'na':'s3', 'nd':'b3', 'ne':'e', 'nh':'s3', 'nl':'s3', 'o':'o', 'oa':'s1',
+		'ok':'x', 'or':'e1', 'p':'p', 'pa':'r3', 'po':'k3', 'pp':'p2', 'pr':'x', 'q':'q', 'qe':'e', 'qf':'e', 'qn':'x',
+		'qq':'x', 'r':'r', 'ra':'x', 'rb':'b3', 're':'r1', 'rf':'x', 'rh':'r2', 'rk':'x', 'rl':'r3', 'rm':'r1', 'rn':'f',
+		'rp':'f', 'ro':'f', 'rr':'x', 'rt':'q1', 'rw':'x', 's':'s', 's1':'s2', 's2':'s2', 's3':'s2', 's4':'s2', 'sh':'x',
+		'si':'q3', 'sk':'a', 'so':'x', 'sp':'p1', 'sq':'x', 'ss':'x', 'sw':'x', 'th':'x', 'tr':'r3', 'uu':'o', 'va':'b3',
+		'wa':'x', 'we':'r2', 'wr':'x', 'z':'s3', 'zh':'x', 'zr':'x', 'ze':'x', 'ms':'s3',
+		'fa':'r1','se':'q1','sa':'s1','lo':'b1'
+	};
 	this.captureGlyph = "x";
 	this.pprops = ['chameleon', 'jigger', 'kamikaze', 'paralysing', 'royal', 'volage', 'functionary', 'halfneutral', 'hurdlecolourchanging',
 				'protean', 'magic', 'uncapturable'];
