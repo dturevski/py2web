@@ -291,9 +291,9 @@ if("i"==name.toLowerCase()){this.imitators.push(T)}else{this.add(new r(name,O,M)
 }for(var N=0;N<P[color].length;N++){var Q=P[color][N].split(/\s+/);var R="";for(var M=0;
 M<Q.length-2;M++){if(c.pprops.indexOf(Q[M])!=-1){R+=Q[M][0]}}if(matches=Q[Q.length-1].toLowerCase().match(/([a-z][0-9a-z]?)([a-h][1-8])+/)){var L=matches[1].toUpperCase();
 var O=I(matches[2]);this.add(new r(L,color[0],R),O)}}}};this.toPiecesClause=function(N){var L="";
-for(color in N){for(var M=0;M<N[color].length;M++){L+=color+" "+N[color][M]+"\n"}}console.log(L);
-return L};this.xfen2Html=function(N){var L=new Array(64);for(var P=0;P<64;P++){L[P]=""
-}var P=0;var O=0;while((O<64)&&(P<N.length)){if("12345678".indexOf(N.charAt(P))!=-1){O=O+parseInt(N.charAt(P));
+for(color in N){for(var M=0;M<N[color].length;M++){L+=color+" "+N[color][M]+"\n"}}return L
+};this.xfen2Html=function(N){var L=new Array(64);for(var P=0;P<64;P++){L[P]=""}var P=0;
+var O=0;while((O<64)&&(P<N.length)){if("12345678".indexOf(N.charAt(P))!=-1){O=O+parseInt(N.charAt(P));
 P=P+1}else{if("("==N.charAt(P)){idx=N.indexOf(")",P);if(idx!=-1){L[O]=N.substring(P+1,idx);
 O=O+1;P=idx+1}else{P=P+1}}else{if("/"==N.charAt(P)){P=P+1}else{L[O]=N.charAt(P);O=O+1;
 P=P+1}}}}var M="";for(var P=0;P<8;P++){for(var O=0;O<8;O++){M+='<a class="cp'+t(L[P*8+O],(P+O)%2)+'"></a>'
@@ -321,18 +321,19 @@ function C(N){var L=N.attr("fen");if(!L){return}var M=h("#"+N.parent().attr("tar
 M.html('<div class="p2w-nav-fwd"></div><div class="p2w-nav-bwd"></div>'+k.xfen2Html(L));
 N.siblings().removeClass("active");N.addClass("active");h(".p2w-nav-fwd").bind("click",Py2Web.navigateForward);
 h(".p2w-nav-bwd").bind("click",Py2Web.navigateBackward)}function f(L){L=L.replace(/&lt;--&gt;/g,"<-->");
-L=L.replace(/--&gt;/g,"-->");L=L.replace(/==&gt;/g,"==>");return L}return{navigateForward:function(L){L.preventDefault();
-C(h('.p2w-solution[target="'+h(this).parent().attr("id")+'"]').children(".active").nextAll("a").first())
+L=L.replace(/--&gt;/g,"-->");L=L.replace(/==&gt;/g,"==>");L=L.replace(/-&gt;/g,"->");
+return L}return{navigateForward:function(L){L.preventDefault();C(h('.p2w-solution[target="'+h(this).parent().attr("id")+'"]').children(".active").nextAll("a").first())
 },navigateBackward:function(L){L.preventDefault();C(h('.p2w-solution[target="'+h(this).parent().attr("id")+'"]').children(".active").prevAll("a").first())
 },init:function(M,L,N){if(typeof(L)==="undefined"){L=false}if(typeof(N)==="undefined"){N=false
 }var O=0;h(M+" .p2w-solution").each(function(){var X=new y();var P=h("#"+h(this).attr("target")).text();
-var aa=h("#"+h(this).attr("target")).attr("glyphs");c.override=aa?JSON.parse(aa):{};
-var W=h(this).attr("notation");c.notation=W?JSON.parse(W):{};var Y=h(this).attr("capture-glyph");
-if(Y){c.captureGlyph=Y}X.fromPiecesClause(P);X.setStm(h(this).attr("full-move")=="wb"?"w":"b");
-h("#"+h(this).attr("target")).html(X.toHtml());var Z=new Array();var Q=new Array();
-var R=0;var U=h("<textarea />").html(h(this).html()).text();if(L){U=f(h(this).html())
-}if((R=x(U,Z,Q))>0){for(i=0;i<R;i++){if(!N){console.log('Parse error near "'+U.substr(Z[i])+'", expecting "'+Q[i].join()+'"')
+var ab=h("#"+h(this).attr("target")).attr("glyphs");c.override=ab?JSON.parse(ab):{};
+var W=h(this).attr("notation");c.notation=W?JSON.parse(W):{};var Z=h(this).attr("capture-glyph");
+if(Z){c.captureGlyph=Z}X.fromPiecesClause(P);X.setStm(h(this).attr("full-move")=="wb"?"w":"b");
+h("#"+h(this).attr("target")).html(X.toHtml());var aa=new Array();var Q=new Array();
+var R=0;var U=h("<textarea />").html(h(this).html()).text();if(L){console.log("unescaping~!");
+var Y=h(this).html();console.log(Y);U=f(h(this).html());console.log(U)}if((R=x(U,aa,Q))>0){for(i=0;
+i<R;i++){if(!N){console.log('Parse error near "'+U.substr(aa[i])+'", expecting "'+Q[i].join()+'"')
 }}return}try{var V=new u();var S=V.build(F,X);h(this).html(S)}catch(T){if(!N){console.log(T)
 }return}O++;C(h(this).attr("start-node")=="last"?h(this).children("a").last():h(this).children("a").first());
-h(this).children("a").click(function(ab){ab.preventDefault();C(h(this))})});return O
+h(this).children("a").click(function(ac){ac.preventDefault();C(h(this))})});return O
 },Board:y}}(jQuery);jQuery(document).ready(function(){Py2Web.init("body")});

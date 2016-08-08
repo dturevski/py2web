@@ -1120,7 +1120,7 @@ function Board() {
 	            retval += color + " " + algebraic[color][i] + "\n";
 	        }
 	    }
-	    console.log(retval);
+	    //console.log(retval);
 	    return retval;
 	}
 
@@ -1334,6 +1334,7 @@ function unescapePopeyeArrows(str) {
     str = str.replace(/&lt;--&gt;/g, "<-->")
     str = str.replace(/--&gt;/g, "-->")
     str = str.replace(/==&gt;/g, "==>")
+    str = str.replace(/-&gt;/g, "->")
     return str
 }
 
@@ -1386,7 +1387,7 @@ return {
 			var error_count = 0
 			var str = $('<textarea />').html($(this).html()).text()	
 			if(escapeHtml) {
-			    str = unescapePopeyeArrows($(this).html());			    
+                str = unescapePopeyeArrows($(this).html());
 			}
 
 
