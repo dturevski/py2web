@@ -405,7 +405,10 @@ function Node() {
 		for(var i = 0; i < this.children.length; i++) {
 			if(this.children.length > 1) {
 
-				if(!this.children[i].noNewLine()) {
+				if(!this.children[i].noNewLine() &&
+                    !(this.isNull() && this.isHalfPlySetPlay() && this.children[i].isNull())
+                ) {
+
 					accumulator.add("\n", board, false, '')
 					accumulator.add(i > 0? " ": "  ", board, i > 0, '')
 				}
@@ -428,12 +431,13 @@ function Node() {
 
 	this.noNewLine = function() {return false}
 	this.isSetPlay = function() {return false}
+    this.isNull = function() {return false}
 
 	this.fullPrefix = function() {
 		
 		var retval = ""
 
-		if(this.depth < 3) {
+		if(this.depth < 3 && !this.noNewLine()) {
 			retval += "\n"
 		}
 		else {
@@ -491,7 +495,23 @@ function NullNode(depth, is_threat) {
 	this.depth = depth
 	this.is_threat = is_threat
 
+    this.isHalfPlySetPlay = function() {
+        var hasNullChild = false
+        for(var i = 0; i < this.children.length; i++) {
+            if(this.children[i].isNull()) {
+              return this.depth == 2
+            }
+        }
+        return false
+    }
+
 	this.asText = function() {
+
+        // special case of h#n.5*
+		if(this.isHalfPlySetPlay()) {
+            return "\n1... ... "
+        }
+
 		return this.is_threat? "~ ": ""
 	}
 	
@@ -515,6 +535,9 @@ function NullNode(depth, is_threat) {
 	this.isSetPlay = function() {
 		return !this.is_threat
 	}
+
+    this.isNull = function() {return true}
+
 
 }
 NullNode.prototype = __node
