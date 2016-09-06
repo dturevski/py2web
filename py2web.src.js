@@ -98,6 +98,7 @@ Command: LongPieceDecl Square '-->' Square 				[* %% = new TwinCommand('Move', [
 		| 'shift' Square '==>' Square 				[* %% = new TwinCommand('Shift', [%2, %4]) *]
 		| 'PolishType'					 			[* %% = new TwinCommand('PolishType', []) *]
 		| 'Imitator' SquareList					 	[* %% = new TwinCommand('Imitator', %2) *]
+		| LongPieceDecl Square 					 	[* %% = new TwinCommand('Add', [%1, %2]) *]
 		;
 
 
