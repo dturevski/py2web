@@ -126,7 +126,8 @@ Ply: Body																[*  %% = %1; *]
 		| Ply '[' Square '=' PieceDecl ']' 								[* %1.promotions.push({unit: %5, at:%3} ); %% = %1; *]
 		| Ply '[' Square '=' ColorPrefix ']' 							[* %1.recolorings[%5].push(%3); %% = %1; *]
  		| Ply '[' '-' Square ']' 										[* %1.removals.push(%4); %% = %1; *]
-		| Ply '[I' SquareList ']'		 							[* %1.imitators = %3; %% = %1; *]
+		| Ply '[I' SquareList ']'		 							    [* %1.imitators = %3; %% = %1; *]
+ 		| Ply '='  										                [*  %% = %1.setv('checksign', '='); *]
 		;
 
 HalfMove: Ply CheckSign 					[* %% = %1.setv('checksign', %2); *]
@@ -457,9 +458,7 @@ function Node() {
 		return (this.depth % 2 != 0)? '': (this.depth >> 1) + '.'
 	}
 
-	this.make = this.unmake = function(b) {
-		b.flip()
-	}
+	this.make = this.unmake = function(b) {}
 
 	this.asText = function() {
 		return "***"
@@ -538,7 +537,10 @@ function NullNode(depth, is_threat) {
 	}
 
     this.isNull = function() {return true}
-
+    
+	this.make = this.unmake = function(b) {
+		b.flip()
+	}
 
 }
 NullNode.prototype = __node
@@ -561,8 +563,6 @@ function TwinNode(id, isContinued) {
 
 	this.make = function(b) {
 		this.oldboard = b.serialize()
-
-		b.flip()
 
 		if(this.anticipator != null) {
 			this.anticipator.make(b)
@@ -644,11 +644,13 @@ function MoveNode (dep, arr, cap) {
 
 	this.annotation = ''
 	this.checksign = ''
+	this.enPassant = false
 
 	this.setEnPassant = function() {
 		var dep = to_xy(this.departure)
 		var arr = to_xy(this.arrival)
 		this.capture = from_xy(arr.x, dep.y)
+    	this.enPassant = true
 		return this
 	}
 
@@ -753,7 +755,10 @@ function MoveNode (dep, arr, cap) {
 		if(this.capture != -1) {
 			if(this.capture == this.arrival) {
 				squares = __fairyHelper.captureGlyph + algebraic(this.arrival)
-			} else {
+			} else if(this.enPassant) {
+				squares = __fairyHelper.captureGlyph + algebraic(this.capture) + ' ep.'
+			}
+			else {
 				squares = __fairyHelper.captureGlyph + algebraic(this.capture) + '&rarr;' + algebraic(this.arrival)
 			}
 		}
