@@ -7,6 +7,7 @@
 	-moz-box-shadow: 2 2 3px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 2 2 3px rgba(0,0,0,0.5);
 	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+	box-sizing: content-box;
 }
 .p2w-diagram.large {
 	width: 256px;
