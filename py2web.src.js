@@ -37,7 +37,7 @@
 	'threat:'
 	'but'
 	'zugzwang\.'
-	'[a-z]\)'						TwinId 		[* %match = %match.charAt(0); *]
+	'[a-z][0-9]*\)'						TwinId 		[* %match = %match.substring(0, %match.length - 1); *]
 	'->'
 	'-->'
 	'==>'
