@@ -6,6 +6,7 @@ py2web.js: py2web.src.js driver_rhino.js_
 
 install:
 	cp py2web.js ~/IdeaProjects/yacpdb/www/py2web/
+	cp index.html ~/IdeaProjects/yacpdb/www/static/py2web.html
 
 clean:
 	rm -f py2web.tmp.js

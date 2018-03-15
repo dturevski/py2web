@@ -1405,7 +1405,13 @@ return {
                 __fairyHelper.captureGlyph = captureGlyph;
             }
 
-			b.fromPiecesClause(pieces_clause)
+            var fen = $('#' + $(this).attr('target')).attr("fen");
+            if(fen) {
+            	b.fromFen(fen)
+			} else {
+                b.fromPiecesClause(pieces_clause)
+			}
+
 			b.setStm($(this).attr("full-move") == 'wb'? 'w': 'b')
 			
 			$('#' + $(this).attr('target')).html(b.toHtml())

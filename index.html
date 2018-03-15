@@ -1,26 +1,8 @@
 
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-
-	<script type="text/javascript" src="jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="py2web.js?ver=0.14.7"></script>
-
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-34970243-3', 'yacpdb.org');
-	  ga('send', 'pageview');
-
-	</script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("button").click(function() {
+			$("#btnP2wDemo").click(function() {
 				$('#demo').html('')
 					.append($("<div>").addClass("p2w-diagram")
 						.attr('id', 'demo-board').html($("#py-pieces").val()))
@@ -28,20 +10,17 @@
 						.attr('target', 'demo-board').html($("#py-output").val()))		
 				Py2Web.init('#demo')
 			})
+			Py2Web.init('#mainContent')
 		})
 	</script>
 
-	<link href="py2web.css?ver=0.14.7" rel="stylesheet" type="text/css" />
 	<style type="text/css">
-		body { width: 1024px; margin: auto; font-family: PT Sans, Sans; }
 		.dia {float: left;}
 		.sol {margin-left: 250px;}
 		.sol-large {margin-left: 314px;}
 		.well { padding: 10px; border: 1px solid #859998; background-color: #F0FCFC; }
 	</style>
 
-
-<body>
 
 	<h1>Py2Web</h1>
 
@@ -55,7 +34,7 @@
 	</p>
 
 	<h2>Demo</h2>
-	<p>Example #3 problem by V. Chepizhny <a href="http://www.yacpdb.org/?id=153689">&gt;&gt;153689</a>. Feel free to test your problems.</p>
+	<p>Example #3 problem by V. Chepizhny <a href="#153689">&gt;&gt;153689</a>. Feel free to test your problems.</p>
 	<table><tr><td width="50%" valign="top">
 		<strong>Starting position</strong><br/>
 		in popeye 'Pieces' clause format:<br/>
@@ -77,8 +56,8 @@ but
   1...Bb7-a6 {and now}
     2.Ba1-e5 ! threat:
       3.Qf2-h2 #</textarea><br/>
-		<button>Go!</button><br/>
-(Protip: you can copy and paste both fields from <a href="https://code.google.com/p/olive-gui/">olive</a>)<br/>
+		<button id="btnP2wDemo">Go!</button><br/>
+(Protip: you can copy and paste both fields from <a href="#static/olive">olive</a>)<br/>
 (Protip2: click right/left parts of the diagram to play the solution forward/backward)<br/>
 
 	</td><td valign="top">
@@ -190,7 +169,7 @@ but
 
 
 	<h3>Neat solution auto-formatting</h3>
-	Py2Web shrinked the solution from 29 lines output by Popeye down to 5 (well, ok, 7).
+	Py2Web shrinked the solution from 29 lines output by Popeye down to 5 (well, ok, 7). Also using "notation" attribute (new in 0.14.10) to display the solution in figurine notation.
 	<div class="well">
 		<b>A. Selivanov</b><br/>
 		JT V. Kopyl- 50, 2007<br/>
@@ -204,7 +183,7 @@ but
 			s#4
 		</div>
 
-		<div class="p2w-solution sol" target="example4">
+		<div class="p2w-solution sol" target="example4" notation='{"K":"&#9812;", "Q":"&#9813;", "R":"&#9814;", "B":"&#9815;", "S":"&#9816;", "P":"&#9817;"}'>
 	1.Qc2-c7 ! zugzwang.
       1...g2-g1=Q
           2.Sh5-f6 +
@@ -300,7 +279,7 @@ d) Imitator c7 {Ic7
 <!-- HTML generated using hilite.me --><div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #062873; font-weight: bold">&lt;div</span> <span style="color: #4070a0">class=&quot;p2w-diagram&quot;</span> <span style="color: #4070a0">id=&quot;myUniqueId&quot;</span> <span style="color: #4070a0">glyphs='{&quot;g&quot;:&quot;q1&quot;,&quot;du&quot;:&quot;p2&quot;}'</span><span style="color: #062873; font-weight: bold">&gt;</span>
 	[Starting position (in popeye &#39;Pieces&#39; clause format)]
 <span style="color: #062873; font-weight: bold">&lt;/div&gt;</span>
-<span style="color: #062873; font-weight: bold">&lt;div</span> <span style="color: #4070a0">class=&quot;p2w-solution&quot;</span> <span style="color: #4070a0">target=&quot;myUniqueId&quot;</span> <span style="color: #4070a0">full-move=&quot;wb&quot;</span> <span style="color: #4070a0">start-node=&quot;first&quot;</span><span style="color: #062873; font-weight: bold">&gt;</span>
+<span style="color: #062873; font-weight: bold">&lt;div</span> <span style="color: #4070a0">class=&quot;p2w-solution&quot;</span> <span style="color: #4070a0">target=&quot;myUniqueId&quot;</span> <span style="color: #4070a0">full-move=&quot;wb&quot;</span> <span style="color: #4070a0">start-node=&quot;first&quot;</span> <span style="color: #4070a0">notation='{&quot;S&quot;:&quot;N&quot;}'</span><span style="color: #062873; font-weight: bold">&gt;</span>
 	[Solution (in popeye output format)]
 <span style="color: #062873; font-weight: bold">&lt;/div&gt;</span>
 </pre></div>
@@ -308,7 +287,8 @@ d) Imitator c7 {Ic7
 	<strong>.p2w-diagram</strong> attributes:
 	<ul>
 		<li><em>id</em> - (required) element identifier
- 		<li><em>glyphs</em> - (optional) changes the default representation of pieces, in JSON. In example above Grasshoppers will be displayed as queens rotated 90 deg (default is 180 deg) and Dummies will be displayed as upside-down pawns (instead of X-s).</li>
+		<li><em>glyphs</em> - (optional) changes the default representation of pieces, in JSON. In example above Grasshoppers will be displayed as queens rotated 90 deg (default is 180 deg) and Dummies will be displayed as upside-down pawns (instead of X-s).</li>
+		<li><em>fen</em> - (optional) starting position in Forsyth-Edwards notation. When present, the contents of the p2w-diagram are ignored.</li>
 	</ul>
 	<p>
 	<strong>.p2w-solution</strong> attributes:
@@ -316,13 +296,15 @@ d) Imitator c7 {Ic7
 		<li><em>target</em> - (required) the <em>id</em> of the corresponding <strong>.p2w-diagram</strong>
  		<li><em>full-move</em> - (optional) attribute may be either "wb" (for direct problems and hs*) or "bw" (for helpmates and series-helpmates). In most cases it can be omitted, but not when there's castling in the solution.</li>
 		<li><em>start-node</em> - (optional) attribute may be either "first" (this is default) or "last" (to display proofgames).</li>
+		<li><em>notation</em> - (optional) attribute similar to glyphs attribute, but used in solution.</li>
+		<li><em>capture-glyph</em> - (optional) symbol used to indicate capture (default is small latin letter "x").</li>
 	</ul>
 	</p>
 
 
 	<p>
-	This is where you download py2web files and jQuery: <a href="py2web-0.14.7.zip">py2web-0.14.7.zip</a><br>
-	Version history: <a href="http://yacpdb.livejournal.com/tag/py2web">http://yacpdb.livejournal.com/tag/py2web</a>
+	This is where you can find py2web files (with sources): <a href="https://github.com/dturevski/py2web">Github/dturevski/py2web</a><br/>
+	JQuery: <a href="http://jquery.com">jquery.com</a>
 
 	</p>
 	<h2>API</h2>
@@ -359,6 +341,14 @@ d) Imitator c7 {Ic7
 
 
 	</p>
+	<h2>Commands in comments</h2>
+	<p>Starting from version 0.14.10 you can change the default behaviour of Py2Web with some special comments:
+	    <ul>
+	        <li><b>{display-departure-square}</b> - comment placed after a move would force Py2Web to include the departure square into the move text representation (e.g. B<b>a1-</b>e5, instead of Be5). Also available are {display-departure-file} and {display-departure-rank}</li>
+	    </ul> 
+	</p>
+	
+	
 	<h2>Error handling</h2>
 	<p>
 		Is minimal as of yet. Syntax and semantic errors (if any) are logged in the javascript console. If something isn't working - check console (Ctrl+Shift+J in Chrome and FF).
@@ -372,7 +362,5 @@ d) Imitator c7 {Ic7
 	</p>
 
 	<hr>
-	<i>Updated: 2014-06-25</i>
-</body>
-</html>
+	<i>Updated: 2018-03-15</i>
 
