@@ -1,7 +1,10 @@
 
 
 	<script type="text/javascript">
-		$(document).ready(function() {
+        if(location.pathname.startsWith("/py2web/")) {
+            window.location.href = "/#static/py2web"
+        }
+        $(document).ready(function() {
 			$("#btnP2wDemo").click(function() {
 				$('#demo').html('')
 					.append($("<div>").addClass("p2w-diagram")
