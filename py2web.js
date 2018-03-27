@@ -340,7 +340,7 @@ return L}return{navigateForward:function(L){L.preventDefault();C(h('.p2w-solutio
 }var O=0;h(M+" .p2w-solution").each(function(){var Y=new y();var P=h("#"+h(this).attr("target")).text();
 var ab=h("#"+h(this).attr("target")).attr("glyphs");c.override=ab?JSON.parse(ab):{};
 var X=h(this).attr("notation");c.notation=X?JSON.parse(X):{};var Z=h(this).attr("capture-glyph");
-if(Z){c.captureGlyph=Z}var R=h("#"+h(this).attr("target")).attr("fen");if(R){Y.fromFen(R)
+if(Z){c.captureGlyph=Z}var R=h("#"+h(this).attr("target")).attr("fen");if(R){Y.fromFen(R.replace("n","s").replace("N","S"))
 }else{Y.fromPiecesClause(P)}Y.setStm(h(this).attr("full-move")=="wb"?"w":"b");h("#"+h(this).attr("target")).html(Y.toHtml());
 var aa=new Array();var Q=new Array();var S=0;var V=h("<textarea />").html(h(this).html()).text();
 if(L){V=f(h(this).html())}if((S=x(V,aa,Q))>0){for(i=0;i<S;i++){if(!N){console.log('Parse error near "'+V.substr(aa[i])+'", expecting "'+Q[i].join()+'"')
