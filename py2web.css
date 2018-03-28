@@ -8,6 +8,7 @@
 	-webkit-box-shadow: 2 2 3px rgba(0,0,0,0.5);
 	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 	box-sizing: content-box;
+	position: relative;
 }
 .p2w-diagram.large {
 	width: 256px;
@@ -28,43 +29,44 @@
 
 .p2w-nav-bwd:hover:after {
 	content: "";
-	margin-left: -16px;
-	margin-top: 89px;
+	left: -16px;
+	top: 89px;
 	border-top: 9px solid transparent;
 	border-bottom: 9px solid transparent;
 	border-right: 9px solid gray;
 	position: absolute;
 }
 .large .p2w-nav-bwd:hover:after {
-	margin-top: 120px;
+	top: 120px;
 }
 
 .p2w-nav-fwd {
 	position: absolute;
-	margin-left: 101px;
+    left: 96px;
 	height: 192px;
 	width: 96px;
 	background-color: transparent; 
 	cursor: pointer;
 }
+
 .large .p2w-nav-fwd {
-	margin-left: 128px;
+	left: 128px;
 	height: 256px;
 	width: 128px;
 }
 
 .p2w-nav-fwd:hover:after {
 	content: "";
-	margin-left: 98px;
-	margin-top: 89px;
+	left: 103px;
+	top: 89px;
 	border-top: 9px solid transparent;
 	border-bottom: 9px solid transparent;
 	border-left: 9px solid gray;
 	position: absolute;
 }
 .large .p2w-nav-fwd:hover:after {
-	margin-left: 135px;
-	margin-top: 120px;
+	left: 135px;
+	top: 120px;
 }
 
 
