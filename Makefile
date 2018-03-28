@@ -1,5 +1,13 @@
+CC = rhino jscc/jscc.js
+COMPRESS = java -jar yuicompressor-2.4.8.jar
+FLAGS = --line-break 80 -o
+TARGET = py2web.js
+
 all: py2web.js
 
 py2web.js: py2web.src.js driver_rhino.js_
-	rhino jscc/jscc.js py2web.src.js > py2web.tmp.js
-	java -jar yuicompressor-2.4.8.jar py2web.tmp.js --line-break 80 -o py2web.js
+	$(CC) py2web.src.js > $(TARGET).tmp.js
+	$(COMPRESS) $(TARGET).tmp.js $(FLAGS) $(TARGET)
+
+clean:
+	rm -f $(TARGET).tmp.js $(TARGET)

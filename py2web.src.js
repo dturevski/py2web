@@ -1407,7 +1407,7 @@ return {
 
             var fen = $('#' + $(this).attr('target')).attr("fen");
             if(fen) {
-                b.fromFen(fen.replace("n", "s").replace("N", "S"));
+                b.fromFen(fen.replace(/n/g, "s").replace(/N/g, "S"));
             } else {
                 b.fromPiecesClause(pieces_clause);
             }
