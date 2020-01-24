@@ -311,19 +311,19 @@ function FairyHelper() {
     this.notation = {};
     this.glyphs = {
         '15':'s3', '16':'s3', '24':'s3', '25':'s3', '35':'s3', '36':'s3', '37':'s3', 'al':'b3', 'am':'a', 'an':'s1', 'ao':'s1',
-        'ar':'b2', 'b':'b', 'b1':'w', 'b2':'w', 'b3':'w', 'be':'w', 'bh':'b2', 'bi':'w', 'bk':'s1', 'bl':'b3', 'bm':'w',
-        'bn':'s2', 'bo':'w', 'bp':'p2', 'br':'w', 'bs':'p2', 'bt':'w', 'bu':'s1', 'bw':'w', 'c':'b1', 'ca':'s3', 'cg':'q1',
-        'ch':'s3', 'cp':'p3', 'cr':'s3', 'ct':'w', 'cy':'w', 'da':'r1', 'db':'b1', 'dg':'q1', 'dk':'r1', 'do':'q3', 'dr':'w',
-        'ds':'w', 'du':'p1', 'ea':'q3', 'eh':'q1', 'ek':'w', 'em':'w', 'eq':'e', 'et':'w', 'f':'o', 'fe':'b3', 'fr':'w',
-        'g':'q2', 'g2':'q1', 'g3':'q3', 'ge':'w', 'gf':'w', 'gh':'s1', 'gi':'s1', 'gl':'w', 'gn':'w', 'gr':'w', 'gt':'w',
-        'ha':'q3', 'k':'k', 'ka':'q3', 'kl':'q3', 'kh':'k2', 'kl':'q1', 'ko':'w', 'kp':'s2', 'l':'q1', 'lb':'b1', 'le':'q3',
-        'lh':'w', 'li':'q3', 'ln':'s1', 'lr':'r1', 'ls':'f', 'm':'w', 'ma':'s1', 'mg':'w', 'mh':'w', 'ml':'w', 'mm':'w',
+        'ar':'b2', 'b':'b', 'b1':'o', 'b2':'o', 'b3':'o', 'be':'o', 'bh':'b2', 'bi':'o', 'bk':'s1', 'bl':'b3', 'bm':'o',
+        'bn':'s2', 'bo':'o', 'bp':'p2', 'br':'o', 'bs':'p2', 'bt':'o', 'bu':'s1', 'bw':'o', 'c':'b1', 'ca':'s3', 'cg':'q1',
+        'ch':'s3', 'cp':'p3', 'cr':'s3', 'ct':'o', 'cy':'o', 'da':'r1', 'db':'b1', 'dg':'q1', 'dk':'r1', 'do':'q3', 'dr':'o',
+        'ds':'o', 'du':'p1', 'ea':'q3', 'eh':'q1', 'ek':'o', 'em':'o', 'eq':'e', 'et':'o', 'f':'o', 'fe':'b3', 'fr':'o',
+        'g':'q2', 'g2':'q1', 'g3':'q3', 'ge':'o', 'gf':'o', 'gh':'s1', 'gi':'s1', 'gl':'o', 'gn':'o', 'gr':'o', 'gt':'o',
+        'ha':'q3', 'k':'k', 'ka':'q3', 'kl':'q3', 'kh':'k2', 'kl':'q1', 'ko':'o', 'kp':'s2', 'l':'q1', 'lb':'b1', 'le':'q3',
+        'lh':'o', 'li':'q3', 'ln':'s1', 'lr':'r1', 'ls':'f', 'm':'o', 'ma':'s1', 'mg':'o', 'mh':'o', 'ml':'o', 'mm':'o',
         'mo':'s3', 'mp':'p3', 'ms':'s3', 'n':'s2', 'na':'s3', 'nd':'b3', 'ne':'e', 'nh':'s3', 'nl':'s3', 'o':'o', 'oa':'s1',
-        'ok':'w', 'or':'e1', 'p':'p', 'pa':'r3', 'po':'k3', 'pp':'p2', 'pr':'w', 'q':'q', 'qe':'e', 'qf':'e', 'qn':'w',
-        'qq':'w', 'r':'r', 'ra':'w', 'rb':'b3', 're':'r1', 'rf':'w', 'rh':'r2', 'rk':'w', 'rl':'r3', 'rm':'r1', 'rn':'f',
-        'rp':'f', 'ro':'f', 'rr':'w', 'rt':'q1', 'rw':'w', 's':'s', 's1':'s2', 's2':'s2', 's3':'s2', 's4':'s2', 'sh':'w',
-        'si':'q3', 'sk':'a', 'so':'w', 'sp':'p1', 'sq':'w', 'ss':'w', 'sw':'w', 'th':'w', 'tr':'r3', 'uu':'o', 'va':'b3',
-        'wa':'w', 'we':'r2', 'wr':'w', 'z':'s3', 'zh':'w', 'zr':'s1', 'ze':'w', 'ms':'s3',
+        'ok':'o', 'or':'e1', 'p':'p', 'pa':'r3', 'po':'k3', 'pp':'p2', 'pr':'o', 'q':'q', 'qe':'e', 'qf':'e', 'qn':'o',
+        'qq':'o', 'r':'r', 'ra':'o', 'rb':'b3', 're':'r1', 'rf':'o', 'rh':'r2', 'rk':'o', 'rl':'r3', 'rm':'r1', 'rn':'f',
+        'rp':'f', 'ro':'f', 'rr':'o', 'rt':'q1', 'rw':'o', 's':'s', 's1':'s2', 's2':'s2', 's3':'s2', 's4':'s2', 'sh':'o',
+        'si':'q3', 'sk':'a', 'so':'o', 'sp':'p1', 'sq':'o', 'ss':'o', 'sw':'o', 'th':'o', 'tr':'r3', 'uu':'o', 'va':'b3',
+        'wa':'o', 'we':'r2', 'wr':'o', 'z':'s3', 'zh':'o', 'zr':'s1', 'ze':'o', 'ms':'s3',
         'fa':'r1','se':'q1','sa':'s1','lo':'b1'
     };
     this.captureGlyph = "x";
