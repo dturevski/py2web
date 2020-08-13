@@ -12,7 +12,7 @@
 !   ' |\t|\r|\n' ;
 
 /~ Non-associative tokens ~/
-    '[0-9]+'                        INT            [* %match = parseInt( %match );    *]
+    '90|180|270'                        Angle            [* %match = parseInt( %match );    *]
     '\['
     '\]'
     '\{([^\{])*\}'                    Comment     [* %match = %match.substr(1, %match.length - 2);    *]
@@ -93,7 +93,7 @@ Command: LongPieceDecl Square '-->' Square                 [* %% = new TwinComma
         | LongPieceDecl Square '<-->' LongPieceDecl Square     [* %% = new TwinCommand('Exchange', [%2, %5]) *]
         | '-' LongPieceDecl Square                          [* %% = new TwinCommand('Remove', [%3]) *]
         | '+' LongPieceDecl Square                          [* %% = new TwinCommand('Add', [%2, %3]) *]
-        | 'rotate' INT                                  [* %% = new TwinCommand('Rotate', [%2]) *]
+        | 'rotate' Angle                                  [* %% = new TwinCommand('Rotate', [%2]) *]
         | 'mirror' Square '<-->' Square             [* %% = new TwinCommand('Mirror', [%2, %4]) *]
         | 'shift' Square '==>' Square                 [* %% = new TwinCommand('Shift', [%2, %4]) *]
         | 'PolishType'                                 [* %% = new TwinCommand('PolishType', []) *]
@@ -1104,7 +1104,7 @@ function Board() {
             }
 
             var matches
-            while((j < words.length) && (matches = words[j].match(/([a-z][0-9a-z]?)([a-h][1-8])+/))) {
+            while((j < words.length) && (matches = words[j].match(/([0-9a-z][0-9a-z]?)([a-h][1-8])+/))) {
                 name = matches[1].toUpperCase()
                 for(var k = 0; k < (words[j].length - name.length)/2; k++) {
                     var square = parseSquare(words[j].substr(name.length + k*2, 2))
