@@ -139,6 +139,7 @@ HalfMove: Ply CheckSign                     [* %% = %1.setv('checksign', %2); *]
 Body: PieceDecl Squares                        [* %% = %2.setv('promotion', %1).setv('departant', %1); *]
         | PawnMove
         | Castling
+        | Body 'ep.'                           [* %% = %1.setEnPassant(); *]
         ;
 
 LongPieceDecl: ColorPrefix PieceName                    [* %% = new Piece(%2, %1, ''); *]
@@ -154,7 +155,6 @@ PieceDecl: PieceName                             [* %% = new Piece(%1, 'u', '');
         ;
 
 PawnMove: Squares                            [* %% = %1.setv('promotion', new Piece('P', 'u', '')).setv('departant', new Piece('P', 'u', '')); *]
-        | PawnMove 'ep.'                    [* %% = %1.setEnPassant(); *]
         ;
 
 Squares: Square '-' Square                    [* %% = new MoveNode(%1, %3, -1); *]
