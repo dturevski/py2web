@@ -339,6 +339,7 @@ function Node() {
     this.childIsThreat = false
     this.setv = __setv
     this.comments = []
+    this.prefix = ""
 
     this.commentCommands = ['display-departure-square', "display-departure-file", "display-departure-rank"]
 
@@ -380,12 +381,14 @@ function Node() {
     }
 
 
-    this.print = function (accumulator, board) {
+    this.print = function (accumulator, board, prefix) {
         this.make(board)
         accumulator.add(this.asText(), board, true, this.getCommentsAsText())
 
         for(var i = 0; i < this.children.length; i++) {
-            accumulator.add(this.children[i].fullPrefix(), board, false, '')
+            fp = this.children[i].fullPrefix()
+            accumulator.add(fp.indent, board, false, '')
+            this.children[i].prefix = fp.prefix
             this.children[i].print(accumulator, board)
         }
 
@@ -405,6 +408,7 @@ function Node() {
 
     this.printChildren = function(accumulator, board) {
         for(var i = 0; i < this.children.length; i++) {
+            fp = this.children[i].fullPrefix()
             if(this.children.length > 1) {
 
                 if(!this.children[i].noNewLine() &&
@@ -415,18 +419,19 @@ function Node() {
                     accumulator.add(i > 0? " ": "  ", board, i > 0, '')
                 }
 
-                accumulator.add(this.children[i].fullPrefix(), board, false, '')
+                accumulator.add(fp.indent, board, false, '')
             } else {
                 if(this.depth == 1) {
                     accumulator.add("\n", board, false, '')
+                    fp.prefix = "";
                 }
                 if(this.isSetPlay() && (this.depth == 2)) {
-                    accumulator.add(this.children[i].fullPrefix(), board, false, '')
+                    accumulator.add(fp.indent, board, false, '')
                 } else {
-                    accumulator.add(this.children[i].shortPrefix(), board, false, '')
+                    fp.prefix = this.children[i].shortPrefix()
                 }
             }
-
+            this.children[i].prefix = fp.prefix
             this.children[i].print(accumulator, board)
         }
     }
@@ -437,19 +442,19 @@ function Node() {
 
     this.fullPrefix = function() {
         
-        var retval = ""
+        var retval = {"indent": "", "prefix": ""}
 
         if(this.depth < 3 && !this.noNewLine()) {
-            retval += "\n"
+            retval.indent += "\n"
         }
         else {
             for(var i = 0; i < this.depth - 2; i++) {
-                retval += " "
+                retval.indent += " "
             }
         }
 
-        retval +=  this.depth >> 1
-        retval +=  (this.depth % 2 != 0) ? '...': '.'
+        retval.prefix +=  this.depth >> 1
+        retval.prefix +=  (this.depth % 2 != 0) ? '...': '.'
         return retval
     }
 
@@ -524,9 +529,8 @@ function NullNode(depth, is_threat) {
         this.unmake(board)
     }
 
-    this.fullPrefix = this.shortPrefix = function() {
-        return ""
-    }
+    this.fullPrefix = function() { return  {"indent": "", "prefix": ""} }
+    this.shortPrefix = function() { return "" }
 
     this.noNewLine = function() {
         return this.is_threat
@@ -557,9 +561,7 @@ function TwinNode(id, isContinued) {
         return this.id + ')'
     }
 
-    this.fullPrefix = function() {
-        return "\n\n"
-    }
+    this.fullPrefix = function() { return  {"indent": "\n\n", "prefix": ""} }
 
     this.make = function(b) {
         this.oldboard = b.serialize()
@@ -581,9 +583,9 @@ TwinNode.prototype = __node
 __twinNode = new TwinNode()
 
 function VirtualTwinNode() {
-    this.asText = this.fullPrefix = this.shortPrefix = function() {
-        return ""
-    }
+    this.fullPrefix = function() { return  {"indent": "", "prefix": ""} }
+    this.shortPrefix = function() { return "" }
+
 
     this.print = function (accumulator, board) {
         this.make(board)
@@ -763,7 +765,7 @@ function MoveNode (dep, arr, cap) {
             }
         }
 
-        var retval = pieceName + depsquares + squares 
+        var retval = this.prefix + pieceName + depsquares + squares
 
         if(this.departant.asText() != this.promotion.asText()) {
             var promAsText = this.promotion.asText()
@@ -935,7 +937,7 @@ function CastlingNode (isKingSide) {
         if(this.annotation != '')
             retval += this.annotation
 
-        return retval 
+        return this.prefix + retval
     }
 
 }
