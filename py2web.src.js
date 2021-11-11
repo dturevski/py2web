@@ -756,8 +756,10 @@ function MoveNode (dep, arr, cap) {
 
         var squares = algebraic(this.arrival)
         if(this.capture != -1) {
-            if(this.capture == this.arrival || this.enPassant) {
+            if(this.capture == this.arrival ) {
                 squares = __fairyHelper.captureGlyph + algebraic(this.arrival)
+            } else if(this.enPassant) {
+                squares = __fairyHelper.captureGlyph + algebraic(this.arrival) + ' ep.'
             }
             else {
                 squares = __fairyHelper.captureGlyph + algebraic(this.capture) + '&rarr;' + algebraic(this.arrival)

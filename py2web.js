@@ -256,9 +256,9 @@ if(this.departant.name.toUpperCase()=="P"){R=(this.capture!=-1)?w(this.departure
 }var Q="";if(this.comments.indexOf("display-departure-square")!=-1){Q+=w(this.departure);
 if(this.capture==-1){Q+="-"}}else{if(this.comments.indexOf("display-departure-file")!=-1){Q+=w(this.departure)[0]
 }else{if(this.comments.indexOf("display-departure-rank")!=-1){Q+=w(this.departure)[1]
-}}}var P=w(this.arrival);if(this.capture!=-1){if(this.capture==this.arrival||this.enPassant){P=c.captureGlyph+w(this.arrival)
-}else{P=c.captureGlyph+w(this.capture)+"&rarr;"+w(this.arrival)}}var O=this.prefix+R+Q+P;
-if(this.departant.asText()!=this.promotion.asText()){var S=this.promotion.asText();
+}}}var P=w(this.arrival);if(this.capture!=-1){if(this.capture==this.arrival){P=c.captureGlyph+w(this.arrival)
+}else{if(this.enPassant){P=c.captureGlyph+w(this.arrival)+" ep."}else{P=c.captureGlyph+w(this.capture)+"&rarr;"+w(this.arrival)
+}}}var O=this.prefix+R+Q+P;if(this.departant.asText()!=this.promotion.asText()){var S=this.promotion.asText();
 if((this.departant.color!=this.promotion.color)&&(this.promotion.color!="n")&&(this.departant.color!="u")){S=this.promotion.color+S
 }O+="="+S}O+=this.imitatorsAsText()+this.recoloringsAsText()+this.antirebirthsAsText()+this.rebirthsAsText()+this.promotionsAsText()+this.removalsAsText();
 if(this.checksign!=""){O+=this.checksign}if(this.annotation!=""){O+=this.annotation
