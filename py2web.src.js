@@ -26,10 +26,11 @@
     '[A-Z]|([0-9A-Z][0-9A-Z])'        PieceName
     '[0-9]+\.'                        MoveNo        [* %match= parseMoveNo(%match);  *]
     '[a-h][1-8]'                    Square        [* %match = parseSquare(%match);  *]
+    '[nbw]\b'                       TerminatingColorPrefix
     'n'
     'w'
-    'b'    
-    '\.\.'                            
+    'b'
+    '\.\.'
     '\.\.\.'                        
     '0\-0'                        
     '0\-0\-0'                        
@@ -116,7 +117,7 @@ Move: MoveNo HalfMove HalfMove                [* %% = [%2.setv('depth', %1), %3.
         ;
 
 Ply: Body                                                                [*  %% = %1; *]
-         | Ply '=' ColorPrefix                                             [* %1.recolorings[%3].push(%1.arrival); %% = %1; *]
+         | Ply '=' TerminatingColorPrefix                                        [* %1.recolorings[%3].push(%1.arrival); %% = %1; *]
          | Ply '=' PieceDecl                                             [*  %% = %1.setv('promotion', %3); *]
          | Ply '=' LongPieceDecl                                         [*  %% = %1.setv('promotion', %3); *]
          | Ply '[' '+' LongPieceDecl Square '=' PieceDecl ']'             [* %1.rebirths.push( {unit:%4, at: %5, prom:%7} ); %% = %1; *] 
@@ -755,10 +756,8 @@ function MoveNode (dep, arr, cap) {
 
         var squares = algebraic(this.arrival)
         if(this.capture != -1) {
-            if(this.capture == this.arrival) {
+            if(this.capture == this.arrival || this.enPassant) {
                 squares = __fairyHelper.captureGlyph + algebraic(this.arrival)
-            } else if(this.enPassant) {
-                squares = __fairyHelper.captureGlyph + algebraic(this.capture) + ' ep.'
             }
             else {
                 squares = __fairyHelper.captureGlyph + algebraic(this.capture) + '&rarr;' + algebraic(this.arrival)
