@@ -913,6 +913,21 @@ function CastlingNode (isKingSide) {
 
     this.isKingSide = isKingSide
 
+    this.departure = null
+    this.arrival = null
+    this.departant = null
+    this.promotion = null
+    this.capture = null
+    this.recolorings = {w:[], b:[], n:[]}
+    this.rebirths = []
+    this.antirebirths = []
+    this.promotions = []  // when promoted is some other piece, not the one that arrives, eg in KobulKings
+    this.imitators = []
+    this.removals = []
+
+    this.annotation = ''
+    this.checksign = ''
+
     this.makeBasicMovement = function(b) {
         var shift = b.btm? 0: 56
 

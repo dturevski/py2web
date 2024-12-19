@@ -282,7 +282,10 @@ this.unmake(P)};this.assertSemantics=function(O){var P=null;if(O.board[this.depa
 }else{if((O.board[this.arrival]!=null)&&(this.capture!=this.arrival)&&(this.arrival!=this.departure)){P="Arrival square "+w(this.arrival)+" is occupied but capture is specified at "+w(this.capture)
 }else{if((this.capture!=-1)&&(O.board[this.capture]==null)){P="Capture at empty square "+w(this.capture)
 }}}}if(P){throw"Semantic error at depth "+this.depth+": "+P}}}v.prototype=__node;
-__moveNode=new v(-1,-1,-1);function n(L){this.isKingSide=L;this.makeBasicMovement=function(M){var N=M.btm?0:56;
+__moveNode=new v(-1,-1,-1);function n(L){this.isKingSide=L;this.departure=null;this.arrival=null;
+this.departant=null;this.promotion=null;this.capture=null;this.recolorings={w:[],b:[],n:[]};
+this.rebirths=[];this.antirebirths=[];this.promotions=[];this.imitators=[];this.removals=[];
+this.annotation="";this.checksign="";this.makeBasicMovement=function(M){var N=M.btm?0:56;
 if(this.isKingSide){M.move(I("e8")+N,I("g8")+N);M.move(I("h8")+N,I("f8")+N)}else{M.move(I("e8")+N,I("c8")+N);
 M.move(I("a8")+N,I("d8")+N)}};this.assertSemantics=function(){};this.asText=function(){var M=this.isKingSide?"0-0":"0-0-0";
 M+=this.imitatorsAsText()+this.recoloringsAsText()+this.antirebirthsAsText()+this.rebirthsAsText()+this.promotionsAsText()+this.removalsAsText();
