@@ -657,12 +657,7 @@ function MoveNode (dep, arr, cap) {
         return this
     }
 
-    this.make = function(b) {
-
-        this.assertSemantics(b)
-
-        this.oldboard = b.serialize()
-        
+    this.makeBasicMovement = function(b) {
         if(this.promotion == null) {
             this.promotion = b.board[this.departure]
         }
@@ -674,7 +669,7 @@ function MoveNode (dep, arr, cap) {
                 this.promotion.color = b.getStm()
             }
         }
-        
+
         // capturing
         if(this.capture != -1) {
             b.drop(this.capture)
@@ -683,6 +678,14 @@ function MoveNode (dep, arr, cap) {
         // moving and promoting
         b.drop(this.departure)
         b.add(this.promotion, this.arrival)
+    }
+
+    this.make = function(b) {
+
+        this.assertSemantics(b)
+
+        this.oldboard = b.serialize()
+        this.makeBasicMovement(b)
         b.flip()
 
         // recoloring
@@ -910,9 +913,7 @@ function CastlingNode (isKingSide) {
 
     this.isKingSide = isKingSide
 
-    this.make = function(b) {
-
-        this.oldboard = b.serialize()
+    this.makeBasicMovement = function(b) {
         var shift = b.btm? 0: 56
 
         if(this.isKingSide) {
@@ -922,9 +923,9 @@ function CastlingNode (isKingSide) {
             b.move(parseSquare('e8') + shift, parseSquare('c8') + shift)
             b.move(parseSquare('a8') + shift, parseSquare('d8') + shift)
         }
-
-        b.flip()
     }
+
+    this.assertSemantics = function() {}
 
     this.asText = function() {
         var retval = this.isKingSide? '0-0': '0-0-0'

@@ -238,11 +238,11 @@ break;case"Imitator":N.imitators=L;break}}}function v(N,L,M){this.departure=N;th
 this.departant=null;this.promotion=null;this.capture=M;this.recolorings={w:[],b:[],n:[]};
 this.rebirths=[];this.antirebirths=[];this.promotions=[];this.imitators=[];this.removals=[];
 this.annotation="";this.checksign="";this.enPassant=false;this.setEnPassant=function(){var P=H(this.departure);
-var O=H(this.arrival);this.capture=K(O.x,P.y);this.enPassant=true;return this};this.make=function(O){this.assertSemantics(O);
-this.oldboard=O.serialize();if(this.promotion==null){this.promotion=O.board[this.departure]
+var O=H(this.arrival);this.capture=K(O.x,P.y);this.enPassant=true;return this};this.makeBasicMovement=function(O){if(this.promotion==null){this.promotion=O.board[this.departure]
 }if(this.promotion.color=="u"){if(O.board[this.departure].color!="u"){this.promotion.color=O.board[this.departure].color
 }else{this.promotion.color=O.getStm()}}if(this.capture!=-1){O.drop(this.capture)}O.drop(this.departure);
-O.add(this.promotion,this.arrival);O.flip();for(var P in this.recolorings){for(var Q=0;
+O.add(this.promotion,this.arrival)};this.make=function(O){this.assertSemantics(O);
+this.oldboard=O.serialize();this.makeBasicMovement(O);O.flip();for(var P in this.recolorings){for(var Q=0;
 Q<this.recolorings[P].length;Q++){if(O.board[this.recolorings[P][Q]]!=null){O.board[this.recolorings[P][Q]].color=P
 }}}for(var Q=0;Q<this.antirebirths.length;Q++){O.move(this.antirebirths[Q].from,this.antirebirths[Q].to);
 if(this.antirebirths[Q].prom!=null){O.board[this.antirebirths[Q].to].name=this.antirebirths[Q].prom.name;
@@ -282,9 +282,9 @@ this.unmake(P)};this.assertSemantics=function(O){var P=null;if(O.board[this.depa
 }else{if((O.board[this.arrival]!=null)&&(this.capture!=this.arrival)&&(this.arrival!=this.departure)){P="Arrival square "+w(this.arrival)+" is occupied but capture is specified at "+w(this.capture)
 }else{if((this.capture!=-1)&&(O.board[this.capture]==null)){P="Capture at empty square "+w(this.capture)
 }}}}if(P){throw"Semantic error at depth "+this.depth+": "+P}}}v.prototype=__node;
-__moveNode=new v(-1,-1,-1);function n(L){this.isKingSide=L;this.make=function(M){this.oldboard=M.serialize();
-var N=M.btm?0:56;if(this.isKingSide){M.move(I("e8")+N,I("g8")+N);M.move(I("h8")+N,I("f8")+N)
-}else{M.move(I("e8")+N,I("c8")+N);M.move(I("a8")+N,I("d8")+N)}M.flip()};this.asText=function(){var M=this.isKingSide?"0-0":"0-0-0";
+__moveNode=new v(-1,-1,-1);function n(L){this.isKingSide=L;this.makeBasicMovement=function(M){var N=M.btm?0:56;
+if(this.isKingSide){M.move(I("e8")+N,I("g8")+N);M.move(I("h8")+N,I("f8")+N)}else{M.move(I("e8")+N,I("c8")+N);
+M.move(I("a8")+N,I("d8")+N)}};this.assertSemantics=function(){};this.asText=function(){var M=this.isKingSide?"0-0":"0-0-0";
 M+=this.imitatorsAsText()+this.recoloringsAsText()+this.antirebirthsAsText()+this.rebirthsAsText()+this.promotionsAsText()+this.removalsAsText();
 if(this.checksign!=""){M+=this.checksign}if(this.annotation!=""){M+=this.annotation
 }return this.prefix+M}}n.prototype=__moveNode;function y(){this.add=function(M,L){if((L>63)||(L<0)){return
