@@ -342,9 +342,6 @@ function Node() {
     this.comments = []
     this.prefix = ""
 
-    this.commentCommands = ['display-departure-square', "display-departure-file", "display-departure-rank"]
-
-
     /*
     This is basically the same recursive tree-building algo as in
     olive-gui/legacy/chess.py::Node::parse_solution
@@ -384,7 +381,7 @@ function Node() {
 
     this.print = function (accumulator, board, prefix) {
         this.make(board)
-        accumulator.add(this.asText(), board, true, this.getCommentsAsText())
+        accumulator.add(this.asOverriddenText(), board, true, this.getCommentsAsText())
 
         for(var i = 0; i < this.children.length; i++) {
             fp = this.children[i].fullPrefix()
@@ -399,7 +396,7 @@ function Node() {
     this.getCommentsAsText = function() {
         var retval = '';
         for(var i = 0; i < this.comments.length; i++) {
-            if(this.commentCommands.indexOf(this.comments[i]) == -1) {
+            if(!this.isCommentCommand(this.comments[i])) {
                 retval += this.comments[i];
             }
         }
@@ -469,6 +466,24 @@ function Node() {
     this.asText = function() {
         return "***"
     }
+
+    this.asOverriddenText = function() {
+        const command = "display:";
+        for(let i = 0; i < this.comments.length; i++) {
+            if (this.comments[i].startsWith(command)) {
+                const text = this.comments[i].substring(command.length);
+                return this.prefix + text
+            }
+        }
+        return this.asText()
+    }
+
+    this.isCommentCommand = function(comment) {
+        return comment.startsWith("display:") ||
+            ['display-departure-square',
+            "display-departure-file",
+            "display-departure-rank"].indexOf(comment) != -1
+    }
 }
 __node = new Node()
 
@@ -523,7 +538,7 @@ function NullNode(depth, is_threat) {
     
     this.print = function (accumulator, board) {
         this.make(board)
-        accumulator.add(this.asText(), board, false, this.getCommentsAsText())
+        accumulator.add(this.asOverriddenText(), board, false, this.getCommentsAsText())
 
         this.printChildren(accumulator, board)
 
@@ -877,7 +892,7 @@ function MoveNode (dep, arr, cap) {
 
     this.print = function (accumulator, board) {
         this.make(board)
-        var text = this.asText()
+        var text = this.asOverriddenText()
         accumulator.add(text, board, true, this.getCommentsAsText())
 
         this.printChildren(accumulator, board)
