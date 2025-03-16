@@ -1042,7 +1042,7 @@ function Board() {
                 this.transform( function(x, y) { return from_xy(y, x) })
             else if (b == 0) // --> a8
                 this.transform( function(x, y) { return from_xy(x, 7 - y) })
-        } else if ( (a == 63) && (b == 0)) { // h1 <--> a8
+        } else if ((a == 0) && (b == 63)) { // h1 <--> a8
             this.transform( function(x, y) { return from_xy(7 - y, 7 - x) })
         }
     }

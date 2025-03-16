@@ -301,7 +301,7 @@ case 180:this.rotate(90);case 90:this.transform(function(M,N){return K(N,7-M)})}
 this.shift=function(M,L){pa=H(M);pb=H(L);this.transform(function(N,O){return K(N+pb.x-pa.x,O+pb.y-pa.y)
 })};this.mirror=function(M,L){if(M==56){if(L==63){this.transform(function(N,O){return K(7-N,O)
 })}else{if(L==7){this.transform(function(N,O){return K(O,N)})}else{if(L==0){this.transform(function(N,O){return K(N,7-O)
-})}}}}else{if((M==63)&&(L==0)){this.transform(function(N,O){return K(7-O,7-N)})}}};
+})}}}}else{if((M==0)&&(L==63)){this.transform(function(N,O){return K(7-O,7-N)})}}};
 this.polishTwin=function(M){for(var L=0;L<64;L++){if(this.board[L]!=null){this.board[L].inverseColor()
 }}};this.toFen=function(){var L="";var O=0;for(var M=0;M<64;M++){if((M>0)&&(M%8==0)){if(O>0){L+=O
 }L+="/";O=0}var N="";if(this.board[M]!=null){N=this.board[M].xfen()}if(this.imitators.indexOf(M)!=-1){N="(!o)"
