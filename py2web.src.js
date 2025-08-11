@@ -120,7 +120,7 @@ Ply: Body                                                                [*  %% 
          | Ply '=' TerminatingColorPrefix                                        [* %1.recolorings[%3].push(%1.arrival); %% = %1; *]
          | Ply '=' PieceDecl                                             [*  %% = %1.setv('promotion', %3); *]
          | Ply '=' LongPieceDecl                                         [*  %% = %1.setv('promotion', %3); *]
-         | Ply '[' '+' LongPieceDecl Square '=' PieceDecl ']'             [* %1.rebirths.push( {unit:%4, at: %5, prom:%7} ); %% = %1; *] 
+         | Ply '[' '+' LongPieceDecl Square '=' PieceDecl ']'             [* %1.rebirths.push( {unit:%4, at: %5, prom:null} ); %1.promotions.push({unit: %7, at:%5} ); %% = %1; *] 
          | Ply '[' '+' LongPieceDecl Square ']'                             [* %1.rebirths.push( {unit:%4, at: %5, prom:null} ); %% = %1; *] 
          | Ply '[' LongPieceDecl Square '->' Square '=' PieceDecl  ']'    [* %1.antirebirths.push( {unit:%3, from: %4, to: %6, prom:%8} ); %% = %1; *] 
          | Ply '[' LongPieceDecl Square '->' Square ']'                    [* %1.antirebirths.push( {unit:%3, from: %4, to: %6, prom:null} ); %% = %1; *] 

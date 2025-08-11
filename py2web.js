@@ -148,8 +148,9 @@ break;case 32:ai=[ab[ab.length-1].setv("depth",ab[ab.length-3]+1)];break;case 33
 break;case 34:ai=[ab[ab.length-1].setv("depth",ab[ab.length-2])];break;case 35:ai=ab[ab.length-1];
 break;case 36:ab[ab.length-3].recolorings[ab[ab.length-1]].push(ab[ab.length-3].arrival);
 ai=ab[ab.length-3];break;case 37:ai=ab[ab.length-3].setv("promotion",ab[ab.length-1]);
-break;case 38:ai=ab[ab.length-3].setv("promotion",ab[ab.length-1]);break;case 39:ab[ab.length-8].rebirths.push({unit:ab[ab.length-5],at:ab[ab.length-4],prom:ab[ab.length-2]});
-ai=ab[ab.length-8];break;case 40:ab[ab.length-6].rebirths.push({unit:ab[ab.length-3],at:ab[ab.length-2],prom:null});
+break;case 38:ai=ab[ab.length-3].setv("promotion",ab[ab.length-1]);break;case 39:ab[ab.length-8].rebirths.push({unit:ab[ab.length-5],at:ab[ab.length-4],prom:null});
+ab[ab.length-8].promotions.push({unit:ab[ab.length-2],at:ab[ab.length-4]});ai=ab[ab.length-8];
+break;case 40:ab[ab.length-6].rebirths.push({unit:ab[ab.length-3],at:ab[ab.length-2],prom:null});
 ai=ab[ab.length-6];break;case 41:ab[ab.length-9].antirebirths.push({unit:ab[ab.length-7],from:ab[ab.length-6],to:ab[ab.length-4],prom:ab[ab.length-2]});
 ai=ab[ab.length-9];break;case 42:ab[ab.length-7].antirebirths.push({unit:ab[ab.length-5],from:ab[ab.length-4],to:ab[ab.length-2],prom:null});
 ai=ab[ab.length-7];break;case 43:ab[ab.length-6].promotions.push({unit:ab[ab.length-2],at:ab[ab.length-4]});
