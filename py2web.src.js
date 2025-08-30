@@ -21,8 +21,8 @@
     '\+'
     '='
     '[=#]'                            OtherCheckSign
-    '[!\?][!\?]?'                    Annotation                            
-    '[cjkprvfhmu]+'                    FairyProps
+    '[!\?][!\?]?'                    Annotation
+    '[cjkprvfhmuda]+'                    FairyProps
     '[A-Z]|([0-9A-Z][0-9A-Z])'        PieceName
     '[0-9]+\.'                        MoveNo        [* %match= parseMoveNo(%match);  *]
     '[a-h][1-8]'                    Square        [* %match = parseSquare(%match);  *]
@@ -328,8 +328,12 @@ function FairyHelper() {
         'fa':'r1','se':'q1','sa':'s1','lo':'b1'
     };
     this.captureGlyph = "x";
-    this.pprops = ['chameleon', 'jigger', 'kamikaze', 'paralysing', 'royal', 'volage', 'functionary', 'halfneutral', 'hurdlecolourchanging',
-                'protean', 'magic', 'uncapturable'];
+    this.pprops = ['aliceb', 'anda', 'andainverse',
+        'bul', 'chameleon', 'dob',
+        'functionary', 'halfneutral', 'hurdlecolourchanging',
+        'jigger', 'kamikaze', 'magic',
+        'paralysing', 'protean', 'royal',
+        'uncapturable', 'volage',];
 }
 
 // RootNode -->  TwinNode | VirtualTwinNode --> NullNode | MoveNode | CastlingNode

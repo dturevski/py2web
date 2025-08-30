@@ -5,14 +5,13 @@ N=0;L=-2;Q=P;if(O.src.length<=Q){return 62}do{switch(N){case 0:if((O.src.charCod
 }else{if(O.src.charCodeAt(P)==33||O.src.charCodeAt(P)==63){N=2}else{if(O.src.charCodeAt(P)==35){N=3
 }else{if(O.src.charCodeAt(P)==42){N=4}else{if(O.src.charCodeAt(P)==43){N=5}else{if(O.src.charCodeAt(P)==44){N=6
 }else{if(O.src.charCodeAt(P)==45){N=7}else{if(O.src.charCodeAt(P)==61){N=8}else{if((O.src.charCodeAt(P)>=65&&O.src.charCodeAt(P)<=72)||(O.src.charCodeAt(P)>=74&&O.src.charCodeAt(P)<=79)||(O.src.charCodeAt(P)>=81&&O.src.charCodeAt(P)<=90)){N=9
-}else{if(O.src.charCodeAt(P)==91){N=10}else{if(O.src.charCodeAt(P)==93){N=11}else{if(O.src.charCodeAt(P)==98){N=12
-}else{if(O.src.charCodeAt(P)==99||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104){N=13
-}else{if(O.src.charCodeAt(P)==110){N=14}else{if(O.src.charCodeAt(P)==119){N=15}else{if(O.src.charCodeAt(P)==46){N=40
-}else{if(O.src.charCodeAt(P)==73){N=42}else{if((O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==112||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=43
+}else{if(O.src.charCodeAt(P)==91){N=10}else{if(O.src.charCodeAt(P)==93){N=11}else{if(O.src.charCodeAt(P)==97||(O.src.charCodeAt(P)>=99&&O.src.charCodeAt(P)<=100)||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104){N=12
+}else{if(O.src.charCodeAt(P)==98){N=13}else{if(O.src.charCodeAt(P)==110){N=14}else{if(O.src.charCodeAt(P)==119){N=15
+}else{if(O.src.charCodeAt(P)==46){N=40}else{if(O.src.charCodeAt(P)==73){N=42}else{if((O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==112||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=43
 }else{if(O.src.charCodeAt(P)==48){N=44}else{if(O.src.charCodeAt(P)==80){N=45}else{if(O.src.charCodeAt(P)==109){N=46
 }else{if(O.src.charCodeAt(P)==49){N=47}else{if(O.src.charCodeAt(P)==114){N=49}else{if(O.src.charCodeAt(P)==57){N=50
-}else{if(O.src.charCodeAt(P)==60){N=53}else{if(O.src.charCodeAt(P)==97||O.src.charCodeAt(P)==100||O.src.charCodeAt(P)==103){N=55
-}else{if(O.src.charCodeAt(P)==101){N=56}else{if(O.src.charCodeAt(P)==105||O.src.charCodeAt(P)==108||O.src.charCodeAt(P)==111||O.src.charCodeAt(P)==113||(O.src.charCodeAt(P)>=120&&O.src.charCodeAt(P)<=121)){N=57
+}else{if(O.src.charCodeAt(P)==60){N=53}else{if(O.src.charCodeAt(P)==101){N=55}else{if(O.src.charCodeAt(P)==103){N=56
+}else{if(O.src.charCodeAt(P)==105||O.src.charCodeAt(P)==108||O.src.charCodeAt(P)==111||O.src.charCodeAt(P)==113||(O.src.charCodeAt(P)>=120&&O.src.charCodeAt(P)<=121)){N=57
 }else{if(O.src.charCodeAt(P)==115){N=58}else{if(O.src.charCodeAt(P)==122){N=59}else{if(O.src.charCodeAt(P)==123){N=60
 }else{if(O.src.charCodeAt(P)==50){N=100}else{if(O.src.charCodeAt(P)==116){N=102}else{if((O.src.charCodeAt(P)>=51&&O.src.charCodeAt(P)<=56)){N=106
 }else{N=-1}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}break;case 1:N=-1;L=1;M=P;break;case 2:if(O.src.charCodeAt(P)==33||O.src.charCodeAt(P)==63){N=41
@@ -22,13 +21,13 @@ L=8;M=P;break;case 6:N=-1;L=39;M=P;break;case 7:if(O.src.charCodeAt(P)==62){N=16
 break;case 9:if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)||(O.src.charCodeAt(P)>=65&&O.src.charCodeAt(P)<=90)){N=51
 }else{N=-1}L=13;M=P;break;case 10:if(O.src.charCodeAt(P)==73){N=20}else{N=-1}L=3;
 M=P;break;case 11:N=-1;L=4;M=P;break;case 12:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=56)){N=22
-}else{if(O.src.charCodeAt(P)==98){N=23}else{if(O.src.charCodeAt(P)==48||O.src.charCodeAt(P)==57){N=57
-}else{if(O.src.charCodeAt(P)==117){N=66}else{N=-1}}}}}L=19;M=P;break;case 13:if(O.src.charCodeAt(P)==41){N=21
-}else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=56)){N=22}else{if(O.src.charCodeAt(P)==99||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
+}else{if(O.src.charCodeAt(P)==97||(O.src.charCodeAt(P)>=99&&O.src.charCodeAt(P)<=100)||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
 }else{if(O.src.charCodeAt(P)==48||O.src.charCodeAt(P)==57){N=57}else{N=-1}}}}L=12;
-M=P;break;case 14:if(O.src.charCodeAt(P)==41){N=21}else{if(O.src.charCodeAt(P)==98){N=23
-}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57}else{N=-1}}}L=17;
-M=P;break;case 15:if(O.src.charCodeAt(P)==41){N=21}else{if(O.src.charCodeAt(P)==98){N=23
+M=P;break;case 13:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=56)){N=22
+}else{if(O.src.charCodeAt(P)==98){N=23}else{if(O.src.charCodeAt(P)==48||O.src.charCodeAt(P)==57){N=57
+}else{if(O.src.charCodeAt(P)==117){N=66}else{N=-1}}}}}L=19;M=P;break;case 14:if(O.src.charCodeAt(P)==41){N=21
+}else{if(O.src.charCodeAt(P)==98){N=23}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57
+}else{N=-1}}}L=17;M=P;break;case 15:if(O.src.charCodeAt(P)==41){N=21}else{if(O.src.charCodeAt(P)==98){N=23
 }else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57}else{N=-1}}}L=18;
 M=P;break;case 16:N=-1;L=29;M=P;break;case 17:if(O.src.charCodeAt(P)==46){N=26}else{N=-1
 }L=20;M=P;break;case 18:N=-1;L=14;M=P;break;case 19:if(O.src.charCodeAt(P)==46){N=18
@@ -44,29 +43,29 @@ M=P;break;case 35:N=-1;L=33;M=P;break;case 36:N=-1;L=25;M=P;break;case 37:N=-1;L
 M=P;break;case 38:N=-1;L=27;M=P;break;case 39:N=-1;L=36;M=P;break;case 40:if(O.src.charCodeAt(P)==46){N=17
 }else{N=-1}break;case 41:N=-1;L=11;M=P;break;case 42:if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)||(O.src.charCodeAt(P)>=65&&O.src.charCodeAt(P)<=90)){N=51
 }else{if(O.src.charCodeAt(P)==109){N=64}else{N=-1}}L=13;M=P;break;case 43:if(O.src.charCodeAt(P)==41){N=21
-}else{if(O.src.charCodeAt(P)==99||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
+}else{if(O.src.charCodeAt(P)==97||(O.src.charCodeAt(P)>=99&&O.src.charCodeAt(P)<=100)||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
 }else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57}else{N=-1}}}L=12;
 M=P;break;case 44:if(O.src.charCodeAt(P)==46){N=18}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=48
 }else{if((O.src.charCodeAt(P)>=65&&O.src.charCodeAt(P)<=90)){N=51}else{if(O.src.charCodeAt(P)==45){N=62
 }else{N=-1}}}}break;case 45:if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)||(O.src.charCodeAt(P)>=65&&O.src.charCodeAt(P)<=90)){N=51
 }else{if(O.src.charCodeAt(P)==111){N=65}else{N=-1}}L=13;M=P;break;case 46:if(O.src.charCodeAt(P)==41){N=21
-}else{if(O.src.charCodeAt(P)==99||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
+}else{if(O.src.charCodeAt(P)==97||(O.src.charCodeAt(P)>=99&&O.src.charCodeAt(P)<=100)||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
 }else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57}else{if(O.src.charCodeAt(P)==105){N=68
 }else{N=-1}}}}L=12;M=P;break;case 47:if(O.src.charCodeAt(P)==46){N=18}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=55)||O.src.charCodeAt(P)==57){N=48
 }else{if((O.src.charCodeAt(P)>=65&&O.src.charCodeAt(P)<=90)){N=51}else{if(O.src.charCodeAt(P)==56){N=54
 }else{N=-1}}}}break;case 48:if(O.src.charCodeAt(P)==46){N=18}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=71
-}else{N=-1}}L=13;M=P;break;case 49:if(O.src.charCodeAt(P)==41){N=21}else{if(O.src.charCodeAt(P)==99||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
+}else{N=-1}}L=13;M=P;break;case 49:if(O.src.charCodeAt(P)==41){N=21}else{if(O.src.charCodeAt(P)==97||(O.src.charCodeAt(P)>=99&&O.src.charCodeAt(P)<=100)||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
 }else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57}else{if(O.src.charCodeAt(P)==111){N=69
 }else{N=-1}}}}L=12;M=P;break;case 50:if(O.src.charCodeAt(P)==46){N=18}else{if(O.src.charCodeAt(P)==48){N=19
 }else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=57)){N=48}else{if((O.src.charCodeAt(P)>=65&&O.src.charCodeAt(P)<=90)){N=51
-}else{N=-1}}}}break;case 51:N=-1;L=13;M=P;break;case 52:if(O.src.charCodeAt(P)==99||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
+}else{N=-1}}}}break;case 51:N=-1;L=13;M=P;break;case 52:if(O.src.charCodeAt(P)==97||(O.src.charCodeAt(P)>=99&&O.src.charCodeAt(P)<=100)||O.src.charCodeAt(P)==102||O.src.charCodeAt(P)==104||(O.src.charCodeAt(P)>=106&&O.src.charCodeAt(P)<=107)||O.src.charCodeAt(P)==109||O.src.charCodeAt(P)==112||O.src.charCodeAt(P)==114||(O.src.charCodeAt(P)>=117&&O.src.charCodeAt(P)<=118)){N=52
 }else{N=-1}L=12;M=P;break;case 53:if(O.src.charCodeAt(P)==45){N=101}else{N=-1}break;
 case 54:if(O.src.charCodeAt(P)==46){N=18}else{if(O.src.charCodeAt(P)==48){N=19}else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=57)){N=71
 }else{N=-1}}}L=13;M=P;break;case 55:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=56)){N=22
-}else{if(O.src.charCodeAt(P)==48||O.src.charCodeAt(P)==57){N=57}else{N=-1}}}break;
-case 56:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=56)){N=22
 }else{if(O.src.charCodeAt(P)==48||O.src.charCodeAt(P)==57){N=57}else{if(O.src.charCodeAt(P)==112){N=67
-}else{N=-1}}}}break;case 57:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57
+}else{N=-1}}}}break;case 56:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=49&&O.src.charCodeAt(P)<=56)){N=22
+}else{if(O.src.charCodeAt(P)==48||O.src.charCodeAt(P)==57){N=57}else{N=-1}}}break;
+case 57:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57
 }else{N=-1}}break;case 58:if(O.src.charCodeAt(P)==41){N=21}else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57
 }else{if(O.src.charCodeAt(P)==104){N=103}else{N=-1}}}break;case 59:if(O.src.charCodeAt(P)==41){N=21
 }else{if((O.src.charCodeAt(P)>=48&&O.src.charCodeAt(P)<=57)){N=57}else{if(O.src.charCodeAt(P)==117){N=70
@@ -193,7 +192,7 @@ if(this.color=="w"){O=O.toUpperCase()}else{O=O.toLowerCase()}if(this.color=="n")
 if(c.notation[O]){O=c.notation[O]}return(this.color=="n"?"n":"")+this.specs+O}}function B(L){var M="b";
 if(L.charAt(0)=="!"){M="n";L=L.substring(1)}else{if(L.toUpperCase()==L){M="w"}}return new r(L.toUpperCase(),M,[])
 }function z(){this.override={};this.notation={};this.glyphs={"15":"s3","16":"s3","24":"s3","25":"s3","35":"s3","36":"s3","37":"s3",al:"b3",am:"a",an:"s1",ao:"s1",ar:"b2",b:"b",b1:"o",b2:"o",b3:"o",be:"o",bh:"b2",bi:"o",bk:"s1",bl:"b3",bm:"o",bn:"s2",bo:"o",bp:"p2",br:"o",bs:"p2",bt:"o",bu:"s1",bw:"o",c:"b1",ca:"s3",cg:"q1",ch:"s3",cp:"p3",cr:"s3",ct:"o",cy:"o",da:"r1",db:"b1",dg:"q1",dk:"r1","do":"q3",dr:"o",ds:"o",du:"p1",ea:"q3",eh:"q1",ek:"o",em:"r2",eq:"e",et:"o",f:"o",fe:"b3",fr:"o",g:"q2",g2:"q1",g3:"q3",ge:"o",gf:"o",gh:"s1",gi:"s1",gl:"o",gn:"s1",gr:"o",gt:"o",ha:"q3",k:"k",ka:"q3",kl:"q3",kh:"k2",kl:"q1",ko:"o",kp:"s2",l:"q1",lb:"b1",le:"q3",lh:"o",li:"q3",ln:"s1",lr:"r1",ls:"f",m:"o",ma:"s1",mg:"o",mh:"o",ml:"o",mm:"o",mo:"s3",mp:"p3",ms:"s3",n:"s2",na:"s3",nd:"b3",ne:"e",nh:"s3",nl:"s3",o:"o",oa:"s1",ok:"o",or:"e1",p:"p",pa:"r3",po:"k3",pp:"p2",pr:"b2",q:"q",qe:"e",qf:"e",qn:"o",qq:"o",r:"r",ra:"o",rb:"b3",re:"r1",rf:"o",rh:"r2",rk:"o",rl:"r3",rm:"r1",rn:"f",rp:"f",ro:"f",rr:"o",rt:"q1",rw:"o",s:"s",s1:"s2",s2:"s2",s3:"s2",s4:"s2",sh:"o",si:"q3",sk:"a",so:"o",sp:"p1",sq:"o",ss:"o",sw:"o",th:"o",tr:"r3",uu:"o",va:"b3",wa:"o",we:"r2",wr:"o",z:"s3",zh:"o",zr:"s1",ze:"o",ms:"s3",fa:"r1",se:"q1",sa:"s1",lo:"b1"};
-this.captureGlyph="x";this.pprops=["chameleon","jigger","kamikaze","paralysing","royal","volage","functionary","halfneutral","hurdlecolourchanging","protean","magic","uncapturable"]
+this.captureGlyph="x";this.pprops=["aliceb","anda","andainverse","bul","chameleon","dob","functionary","halfneutral","hurdlecolourchanging","jigger","kamikaze","magic","paralysing","protean","royal","uncapturable","volage"]
 }function G(){this.depth=0;this.childIsThreat=false;this.setv=e;this.comments=[];
 this.prefix="";this.unflatten=function(L,M){this.children=[];while(M<L.length){if(this.depth+1==L[M].depth){this.children.push(L[M]);
 M=L[M].unflatten(L,M+1)}else{if(this.depth+1<L[M].depth){var N=new d(this.depth+1,this.childIsThreat);
